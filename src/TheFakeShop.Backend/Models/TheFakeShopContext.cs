@@ -9,10 +9,8 @@ namespace TheFakeShop.Backend.Models
 {
     public partial class TheFakeShopContext : DbContext
     {
-        private readonly IConfiguration _configuration;
-        public TheFakeShopContext(IConfiguration configuration)
+        public TheFakeShopContext()
         {
-            _configuration = configuration;
         }
 
         public TheFakeShopContext(DbContextOptions<TheFakeShopContext> options)
@@ -34,7 +32,7 @@ namespace TheFakeShop.Backend.Models
             if (!optionsBuilder.IsConfigured)
             {
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-                optionsBuilder.UseSqlServer(_configuration["ConnectionStrings:DefaultConnection"]);
+                optionsBuilder.UseSqlServer(new ConfigurationBuilder().AddJsonFile("appsettings.json").Build().GetSection("ConnectionStrings")["DefaultConnection"]);
             }
         }
 
