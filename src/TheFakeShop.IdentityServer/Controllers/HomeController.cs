@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
-using TheFakeShop.IdentityServer.Models;
+using TheFakeShop.IdentityServer.ViewModels;
 
 namespace TheFakeShop.IdentityServer.Controllers
 {

@@ -1,6 +1,6 @@
 using System;
 
-namespace TheFakeShop.IdentityServer.Models
+namespace TheFakeShop.IdentityServer.ViewModels
 {
     public class ErrorViewModel
     {
