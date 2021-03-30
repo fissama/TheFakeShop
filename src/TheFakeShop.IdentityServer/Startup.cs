@@ -12,6 +12,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using TheFakeShop.IdentityServer.Contexts;
 using System.Reflection;
+using TheFakeShop.IdentityServer.Identity;
+using TheFakeShop.IdentityServer.Models;
 
 namespace TheFakeShop.IdentityServer
 {
@@ -32,10 +34,27 @@ namespace TheFakeShop.IdentityServer
                     Configuration.GetConnectionString("DefaultConnection")));
             services.AddDatabaseDeveloperPageExceptionFilter();
 
-            services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
+            services.AddDefaultIdentity<CustomUser>(options => options.SignIn.RequireConfirmedAccount = false)
+                .AddRoles<IdentityRole>()
                 .AddEntityFrameworkStores<IdentityServerDbContext>();
 
+            services.AddIdentityServer(options =>
+            {
+                options.Events.RaiseErrorEvents = true;
+                options.Events.RaiseInformationEvents = true;
+                options.Events.RaiseFailureEvents = true;
+                options.Events.RaiseSuccessEvents = true;
+                options.EmitStaticAudienceClaim = true;
+            })
+               .AddInMemoryIdentityResources(IdentityServerConfig.IdentityResources)
+               .AddInMemoryApiScopes(IdentityServerConfig.ApiScopes)
+               .AddInMemoryClients(IdentityServerConfig.Clients)
+               .AddAspNetIdentity<CustomUser>()
+               .AddProfileService<CustomProfileService>()
+               .AddDeveloperSigningCredential(); // not recommended for production - you need to store your key material somewhere secure
+
             services.AddControllersWithViews();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -57,6 +76,7 @@ namespace TheFakeShop.IdentityServer
 
             app.UseRouting();
 
+            app.UseIdentityServer();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
