@@ -11,6 +11,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using TheFakeShop.IdentityServer.Contexts;
+using System.Reflection;
 
 namespace TheFakeShop.IdentityServer
 {
@@ -29,6 +30,7 @@ namespace TheFakeShop.IdentityServer
             services.AddDbContext<IdentityServerDbContext>(options =>
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
+            services.AddDatabaseDeveloperPageExceptionFilter();
 
             services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
                 .AddEntityFrameworkStores<IdentityServerDbContext>();
@@ -50,6 +52,7 @@ namespace TheFakeShop.IdentityServer
                 app.UseHsts();
             }
             app.UseHttpsRedirection();
+
             app.UseStaticFiles();
 
             app.UseRouting();
