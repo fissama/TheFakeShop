@@ -1,12 +1,26 @@
 {
+  "iisSettings": {
+    "windowsAuthentication": false,
+    "anonymousAuthentication": true,
+    "iis": {
+      "applicationUrl": "http://localhost/TheFakeShop.IdentityServer",
+      "sslPort": 0
+    },
+    "iisExpress": {
+      "applicationUrl": "http://localhost:44399/",
+      "sslPort": 44399
+    }
+  },
   "profiles": {
     "SelfHost": {
       "commandName": "Project",
+      "workingDirectory": "D:\\Code\\NashTech\\TheFakeShop\\src\\TheFakeShop.IdentityServer",
       "launchBrowser": true,
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       },
-      "applicationUrl": "https://localhost:5001"
+      "use64Bit": true,
+      "applicationUrl": "https://localhost:3000"
     }
   }
 }
