@@ -2,6 +2,7 @@
 // Licensed under the Apache License, Version 2.0. See LICENSE in the project root for license information.
 
 
+using IdentityServer4;
 using IdentityServer4.Models;
 using System.Collections.Generic;
 
@@ -19,7 +20,7 @@ namespace TheFakeShop.IdentityServer
         public static IEnumerable<ApiScope> ApiScopes =>
             new ApiScope[]
             {
-                new ApiScope("scope1"),
+                new ApiScope("thefakeshop.api"),
                 new ApiScope("scope2"),
             };
 
@@ -35,7 +36,27 @@ namespace TheFakeShop.IdentityServer
                     AllowedGrantTypes = GrantTypes.ClientCredentials,
                     ClientSecrets = { new Secret("511536EF-F270-4058-80CA-1C89C192F69A".Sha256()) },
 
-                    AllowedScopes = { "scope1" }
+                    AllowedScopes = { "thefakeshop.api" }
+                },
+
+                // interactive ASP.NET Core MVC client
+                new Client
+                {
+                    ClientId = "mvc",
+                    ClientName = "MVC Client",
+                    RequireConsent = false,
+                    AllowedGrantTypes = GrantTypes.Code,
+                    ClientSecrets = { new Secret("secret".Sha256()) },
+
+                    RedirectUris = { "https://localhost:44380/signin-oidc" },
+                    PostLogoutRedirectUris = { "https://localhost:44380/signout-callback-oidc" },
+
+                    AllowedScopes = {
+                        IdentityServerConstants.StandardScopes.OpenId,
+                        IdentityServerConstants.StandardScopes.Profile,
+                        "thefakeshop.api" 
+                    },
+                    AllowOfflineAccess = true
                 },
 
                 // interactive client using code flow + pkce

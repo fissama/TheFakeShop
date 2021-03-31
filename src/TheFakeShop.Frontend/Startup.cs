@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -7,6 +8,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
 using System;
 using System.Collections.Generic;
+using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -24,6 +26,8 @@ namespace TheFakeShop.Frontend
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            JwtSecurityTokenHandler.DefaultInboundClaimTypeMap.Clear();
+
             services.AddAuthentication(options =>
             {
                 options.DefaultScheme = "Cookies";
@@ -32,15 +36,17 @@ namespace TheFakeShop.Frontend
                 .AddCookie("Cookies")
                 .AddOpenIdConnect("oidc", options =>
                 {
-                    options.Authority = "https://localhost:5001";
+                    options.SignInScheme = "Cookies";
+
+                    options.Authority = "https://localhost:3000";
                     options.RequireHttpsMetadata = false;
-                    options.GetClaimsFromUserInfoEndpoint = true;
 
                     options.ClientId = "mvc";
                     options.ClientSecret = "secret";
                     options.ResponseType = "code";
 
                     options.SaveTokens = true;
+                    options.GetClaimsFromUserInfoEndpoint = true;
 
                     options.Scope.Add("openid");
                     options.Scope.Add("profile");
@@ -51,6 +57,8 @@ namespace TheFakeShop.Frontend
                         NameClaimType = "name",
                         RoleClaimType = "role"
                     };
+
+                    options.ClaimActions.MapJsonKey("website", "website");
                 });
 
             services.AddControllersWithViews();
