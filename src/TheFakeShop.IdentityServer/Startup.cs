@@ -27,11 +27,11 @@ namespace TheFakeShop.IdentityServer
         }
 
         public void ConfigureServices(IServiceCollection services)
-        {
-            services.AddControllersWithViews();
+        { 
 
             services.AddDbContext<ApplicationDbContext>(options =>
-                options.UseSqlite(Configuration.GetConnectionString("DefaultConnection")));
+                options.UseSqlServer(
+                    Configuration.GetConnectionString("DefaultConnection")));
 
             services.AddIdentity<ApplicationUser, IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>()
@@ -52,6 +52,12 @@ namespace TheFakeShop.IdentityServer
                 .AddInMemoryClients(Config.Clients)
                 .AddAspNetIdentity<ApplicationUser>();
 
+            services.AddAuthentication();
+
+            services.AddAuthorization();
+
+            services.AddControllersWithViews();
+
             // not recommended for production - you need to store your key material somewhere secure
             builder.AddDeveloperSigningCredential();
 
@@ -62,7 +68,7 @@ namespace TheFakeShop.IdentityServer
                     
                     // register your IdentityServer with Google at https://console.developers.google.com
                     // enable the Google+ API
-                    // set the redirect URI to https://localhost:5001/signin-google
+                    // set the redirect URI to https://localhost:3000/signin-google
                     options.ClientId = "copy client ID from Google here";
                     options.ClientSecret = "copy client secret from Google here";
                 });
@@ -73,14 +79,17 @@ namespace TheFakeShop.IdentityServer
             if (Environment.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-                app.UseDatabaseErrorPage();
+                app.UseMigrationsEndPoint();
             }
 
+            app.UseHttpsRedirection();
             app.UseStaticFiles();
 
             app.UseRouting();
+
             app.UseIdentityServer();
             app.UseAuthorization();
+
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapDefaultControllerRoute();
