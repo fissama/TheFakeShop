@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TheFakeShop.Backend", "TheF
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TheFakeShop.Frontend", "TheFakeShop.Frontend\TheFakeShop.Frontend.csproj", "{F7F6C10F-A834-48E0-8D8F-CA91B3D6A3FD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TheFakeShop.IdentityServer", "TheFakeShop.IdentityServer\TheFakeShop.IdentityServer.csproj", "{8DEC4A3B-05DE-4446-841E-EC5A75817A30}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TheFakeShop.IdentityServer", "TheFakeShop.IdentityServer\TheFakeShop.IdentityServer.csproj", "{8DEC4A3B-05DE-4446-841E-EC5A75817A30}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
