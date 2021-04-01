@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TheFakeShop.Backend", "TheF
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TheFakeShop.Frontend", "TheFakeShop.Frontend\TheFakeShop.Frontend.csproj", "{F7F6C10F-A834-48E0-8D8F-CA91B3D6A3FD}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TheFakeShop.IdentityServer", "TheFakeShop.IdentityServer\TheFakeShop.IdentityServer.csproj", "{8DEC4A3B-05DE-4446-841E-EC5A75817A30}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TheFakeShop.IdentityServer", "TheFakeShop.IdentityServer\TheFakeShop.IdentityServer.csproj", "{C096A583-7C4F-4863-BC72-32135CEFD727}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -23,10 +23,10 @@ Global
 		{F7F6C10F-A834-48E0-8D8F-CA91B3D6A3FD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F7F6C10F-A834-48E0-8D8F-CA91B3D6A3FD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F7F6C10F-A834-48E0-8D8F-CA91B3D6A3FD}.Release|Any CPU.Build.0 = Release|Any CPU
-		{8DEC4A3B-05DE-4446-841E-EC5A75817A30}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{8DEC4A3B-05DE-4446-841E-EC5A75817A30}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{8DEC4A3B-05DE-4446-841E-EC5A75817A30}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{8DEC4A3B-05DE-4446-841E-EC5A75817A30}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C096A583-7C4F-4863-BC72-32135CEFD727}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C096A583-7C4F-4863-BC72-32135CEFD727}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C096A583-7C4F-4863-BC72-32135CEFD727}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C096A583-7C4F-4863-BC72-32135CEFD727}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
