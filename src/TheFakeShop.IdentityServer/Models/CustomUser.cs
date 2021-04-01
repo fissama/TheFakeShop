@@ -15,8 +15,5 @@ namespace TheFakeShop.IdentityServer.Models
         public CustomUser(string userName) : base(userName)
         {
         }
-
-        [PersonalData]
-        public string FullName { get; set; }
     }
 }
