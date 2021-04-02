@@ -10,8 +10,8 @@ using TheFakeShop.Backend.Models;
 namespace TheFakeShop.Backend.Migrations
 {
     [DbContext(typeof(TheFakeShopContext))]
-    [Migration("20210401092335_IdentityServer")]
-    partial class IdentityServer
+    [Migration("20210402024832_TheFakeShop")]
+    partial class TheFakeShop
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -21,113 +21,6 @@ namespace TheFakeShop.Backend.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("ProductVersion", "5.0.4")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-            modelBuilder.Entity("TheFakeShop.Backend.Models.Account", b =>
-                {
-                    b.Property<int>("AccountId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasColumnName("AccountID")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Address")
-                        .HasMaxLength(60)
-                        .HasColumnType("nvarchar(60)");
-
-                    b.Property<int?>("DistrictId")
-                        .HasColumnType("int")
-                        .HasColumnName("DistrictID");
-
-                    b.Property<string>("Email")
-                        .HasMaxLength(50)
-                        .IsUnicode(false)
-                        .HasColumnType("varchar(50)");
-
-                    b.Property<string>("FirstName")
-                        .HasMaxLength(40)
-                        .HasColumnType("nvarchar(40)");
-
-                    b.Property<bool?>("Gender")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("LastName")
-                        .HasMaxLength(25)
-                        .HasColumnType("nvarchar(25)");
-
-                    b.Property<byte[]>("ModifiedAt")
-                        .IsConcurrencyToken()
-                        .IsRequired()
-                        .ValueGeneratedOnAddOrUpdate()
-                        .HasColumnType("rowversion")
-                        .HasColumnName("Modified_at");
-
-                    b.Property<string>("Password")
-                        .HasMaxLength(50)
-                        .IsUnicode(false)
-                        .HasColumnType("varchar(50)");
-
-                    b.Property<string>("Phone")
-                        .HasMaxLength(10)
-                        .IsUnicode(false)
-                        .HasColumnType("char(10)")
-                        .IsFixedLength(true);
-
-                    b.Property<string>("RememberToken")
-                        .HasMaxLength(100)
-                        .IsUnicode(false)
-                        .HasColumnType("varchar(100)")
-                        .HasColumnName("Remember_token");
-
-                    b.HasKey("AccountId");
-
-                    b.HasIndex("DistrictId");
-
-                    b.ToTable("Account");
-                });
-
-            modelBuilder.Entity("TheFakeShop.Backend.Models.Admin", b =>
-                {
-                    b.Property<int>("AdminId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasColumnName("AdminID")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Email")
-                        .HasMaxLength(50)
-                        .IsUnicode(false)
-                        .HasColumnType("varchar(50)");
-
-                    b.Property<string>("FirstName")
-                        .HasMaxLength(40)
-                        .HasColumnType("nvarchar(40)");
-
-                    b.Property<string>("LastName")
-                        .HasMaxLength(25)
-                        .HasColumnType("nvarchar(25)");
-
-                    b.Property<byte[]>("ModifiedAt")
-                        .IsConcurrencyToken()
-                        .IsRequired()
-                        .ValueGeneratedOnAddOrUpdate()
-                        .HasColumnType("rowversion")
-                        .HasColumnName("Modified_at");
-
-                    b.Property<string>("Password")
-                        .HasMaxLength(50)
-                        .IsUnicode(false)
-                        .HasColumnType("varchar(50)");
-
-                    b.Property<string>("RememberToken")
-                        .HasMaxLength(100)
-                        .IsUnicode(false)
-                        .HasColumnType("varchar(100)")
-                        .HasColumnName("Remember_token");
-
-                    b.HasKey("AdminId");
-
-                    b.ToTable("Admin");
-                });
 
             modelBuilder.Entity("TheFakeShop.Backend.Models.Category", b =>
                 {
@@ -157,29 +50,6 @@ namespace TheFakeShop.Backend.Migrations
                     b.HasIndex("ParentId");
 
                     b.ToTable("Categories");
-                });
-
-            modelBuilder.Entity("TheFakeShop.Backend.Models.District", b =>
-                {
-                    b.Property<int>("DistrictId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasColumnName("DistrictID")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("DistrictName")
-                        .HasMaxLength(30)
-                        .HasColumnType("nvarchar(30)");
-
-                    b.Property<int?>("ProvinceId")
-                        .HasColumnType("int")
-                        .HasColumnName("ProvinceID");
-
-                    b.HasKey("DistrictId");
-
-                    b.HasIndex("ProvinceId");
-
-                    b.ToTable("Districts");
                 });
 
             modelBuilder.Entity("TheFakeShop.Backend.Models.Product", b =>
@@ -302,33 +172,6 @@ namespace TheFakeShop.Backend.Migrations
                     b.ToTable("ProductRatings");
                 });
 
-            modelBuilder.Entity("TheFakeShop.Backend.Models.Province", b =>
-                {
-                    b.Property<int>("ProvinceId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasColumnName("ProvinceID")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("ProvinceName")
-                        .HasMaxLength(30)
-                        .HasColumnType("nvarchar(30)");
-
-                    b.HasKey("ProvinceId");
-
-                    b.ToTable("Provinces");
-                });
-
-            modelBuilder.Entity("TheFakeShop.Backend.Models.Account", b =>
-                {
-                    b.HasOne("TheFakeShop.Backend.Models.District", "District")
-                        .WithMany("Accounts")
-                        .HasForeignKey("DistrictId")
-                        .HasConstraintName("FK__Account__Distric__34C8D9D1");
-
-                    b.Navigation("District");
-                });
-
             modelBuilder.Entity("TheFakeShop.Backend.Models.Category", b =>
                 {
                     b.HasOne("TheFakeShop.Backend.Models.Category", "Parent")
@@ -337,16 +180,6 @@ namespace TheFakeShop.Backend.Migrations
                         .HasConstraintName("FK__Categorie__Paren__24927208");
 
                     b.Navigation("Parent");
-                });
-
-            modelBuilder.Entity("TheFakeShop.Backend.Models.District", b =>
-                {
-                    b.HasOne("TheFakeShop.Backend.Models.Province", "Province")
-                        .WithMany("Districts")
-                        .HasForeignKey("ProvinceId")
-                        .HasConstraintName("FK__Districts__Provi__31EC6D26");
-
-                    b.Navigation("Province");
                 });
 
             modelBuilder.Entity("TheFakeShop.Backend.Models.Product", b =>
@@ -386,21 +219,11 @@ namespace TheFakeShop.Backend.Migrations
                     b.Navigation("Products");
                 });
 
-            modelBuilder.Entity("TheFakeShop.Backend.Models.District", b =>
-                {
-                    b.Navigation("Accounts");
-                });
-
             modelBuilder.Entity("TheFakeShop.Backend.Models.Product", b =>
                 {
                     b.Navigation("ProductImages");
 
                     b.Navigation("ProductRatings");
-                });
-
-            modelBuilder.Entity("TheFakeShop.Backend.Models.Province", b =>
-                {
-                    b.Navigation("Districts");
                 });
 #pragma warning restore 612, 618
         }

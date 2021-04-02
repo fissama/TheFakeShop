@@ -3,28 +3,10 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace TheFakeShop.Backend.Migrations
 {
-    public partial class IdentityServer : Migration
+    public partial class TheFakeShop : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.CreateTable(
-                name: "Admin",
-                columns: table => new
-                {
-                    AdminID = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    FirstName = table.Column<string>(type: "nvarchar(40)", maxLength: 40, nullable: true),
-                    LastName = table.Column<string>(type: "nvarchar(25)", maxLength: 25, nullable: true),
-                    Email = table.Column<string>(type: "varchar(50)", unicode: false, maxLength: 50, nullable: true),
-                    Password = table.Column<string>(type: "varchar(50)", unicode: false, maxLength: 50, nullable: true),
-                    Remember_token = table.Column<string>(type: "varchar(100)", unicode: false, maxLength: 100, nullable: true),
-                    Modified_at = table.Column<byte[]>(type: "rowversion", rowVersion: true, nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Admin", x => x.AdminID);
-                });
-
             migrationBuilder.CreateTable(
                 name: "Categories",
                 columns: table => new
@@ -44,19 +26,6 @@ namespace TheFakeShop.Backend.Migrations
                         principalTable: "Categories",
                         principalColumn: "CategoryID",
                         onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Provinces",
-                columns: table => new
-                {
-                    ProvinceID = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    ProvinceName = table.Column<string>(type: "nvarchar(30)", maxLength: 30, nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Provinces", x => x.ProvinceID);
                 });
 
             migrationBuilder.CreateTable(
@@ -80,26 +49,6 @@ namespace TheFakeShop.Backend.Migrations
                         column: x => x.CategoryID,
                         principalTable: "Categories",
                         principalColumn: "CategoryID",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Districts",
-                columns: table => new
-                {
-                    DistrictID = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    DistrictName = table.Column<string>(type: "nvarchar(30)", maxLength: 30, nullable: true),
-                    ProvinceID = table.Column<int>(type: "int", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Districts", x => x.DistrictID);
-                    table.ForeignKey(
-                        name: "FK__Districts__Provi__31EC6D26",
-                        column: x => x.ProvinceID,
-                        principalTable: "Provinces",
-                        principalColumn: "ProvinceID",
                         onDelete: ReferentialAction.Restrict);
                 });
 
@@ -149,48 +98,10 @@ namespace TheFakeShop.Backend.Migrations
                         onDelete: ReferentialAction.Restrict);
                 });
 
-            migrationBuilder.CreateTable(
-                name: "Account",
-                columns: table => new
-                {
-                    AccountID = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    FirstName = table.Column<string>(type: "nvarchar(40)", maxLength: 40, nullable: true),
-                    LastName = table.Column<string>(type: "nvarchar(25)", maxLength: 25, nullable: true),
-                    Email = table.Column<string>(type: "varchar(50)", unicode: false, maxLength: 50, nullable: true),
-                    Password = table.Column<string>(type: "varchar(50)", unicode: false, maxLength: 50, nullable: true),
-                    Phone = table.Column<string>(type: "char(10)", unicode: false, fixedLength: true, maxLength: 10, nullable: true),
-                    Gender = table.Column<bool>(type: "bit", nullable: true),
-                    Address = table.Column<string>(type: "nvarchar(60)", maxLength: 60, nullable: true),
-                    Remember_token = table.Column<string>(type: "varchar(100)", unicode: false, maxLength: 100, nullable: true),
-                    DistrictID = table.Column<int>(type: "int", nullable: true),
-                    Modified_at = table.Column<byte[]>(type: "rowversion", rowVersion: true, nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Account", x => x.AccountID);
-                    table.ForeignKey(
-                        name: "FK__Account__Distric__34C8D9D1",
-                        column: x => x.DistrictID,
-                        principalTable: "Districts",
-                        principalColumn: "DistrictID",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Account_DistrictID",
-                table: "Account",
-                column: "DistrictID");
-
             migrationBuilder.CreateIndex(
                 name: "IX_Categories_ParentID",
                 table: "Categories",
                 column: "ParentID");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Districts_ProvinceID",
-                table: "Districts",
-                column: "ProvinceID");
 
             migrationBuilder.CreateIndex(
                 name: "IX_ProductImages_ProductID",
@@ -211,25 +122,13 @@ namespace TheFakeShop.Backend.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Account");
-
-            migrationBuilder.DropTable(
-                name: "Admin");
-
-            migrationBuilder.DropTable(
                 name: "ProductImages");
 
             migrationBuilder.DropTable(
                 name: "ProductRatings");
 
             migrationBuilder.DropTable(
-                name: "Districts");
-
-            migrationBuilder.DropTable(
                 name: "Products");
-
-            migrationBuilder.DropTable(
-                name: "Provinces");
 
             migrationBuilder.DropTable(
                 name: "Categories");
