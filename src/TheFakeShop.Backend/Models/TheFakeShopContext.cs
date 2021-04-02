@@ -18,14 +18,10 @@ namespace TheFakeShop.Backend.Models
         {
         }
 
-        public virtual DbSet<Account> Accounts { get; set; }
-        public virtual DbSet<Admin> Admins { get; set; }
         public virtual DbSet<Category> Categories { get; set; }
-        public virtual DbSet<District> Districts { get; set; }
         public virtual DbSet<Product> Products { get; set; }
         public virtual DbSet<ProductImage> ProductImages { get; set; }
         public virtual DbSet<ProductRating> ProductRatings { get; set; }
-        public virtual DbSet<Province> Provinces { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -39,80 +35,6 @@ namespace TheFakeShop.Backend.Models
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.HasAnnotation("Relational:Collation", "SQL_Latin1_General_CP1_CI_AS");
-
-            modelBuilder.Entity<Account>(entity =>
-            {
-                entity.ToTable("Account");
-
-                entity.Property(e => e.AccountId).HasColumnName("AccountID");
-
-                entity.Property(e => e.Address).HasMaxLength(60);
-
-                entity.Property(e => e.DistrictId).HasColumnName("DistrictID");
-
-                entity.Property(e => e.Email)
-                    .HasMaxLength(50)
-                    .IsUnicode(false);
-
-                entity.Property(e => e.FirstName).HasMaxLength(40);
-
-                entity.Property(e => e.LastName).HasMaxLength(25);
-
-                entity.Property(e => e.ModifiedAt)
-                    .IsRequired()
-                    .IsRowVersion()
-                    .IsConcurrencyToken()
-                    .HasColumnName("Modified_at");
-
-                entity.Property(e => e.Password)
-                    .HasMaxLength(50)
-                    .IsUnicode(false);
-
-                entity.Property(e => e.Phone)
-                    .HasMaxLength(10)
-                    .IsUnicode(false)
-                    .IsFixedLength(true);
-
-                entity.Property(e => e.RememberToken)
-                    .HasMaxLength(100)
-                    .IsUnicode(false)
-                    .HasColumnName("Remember_token");
-
-                entity.HasOne(d => d.District)
-                    .WithMany(p => p.Accounts)
-                    .HasForeignKey(d => d.DistrictId)
-                    .HasConstraintName("FK__Account__Distric__34C8D9D1");
-            });
-
-            modelBuilder.Entity<Admin>(entity =>
-            {
-                entity.ToTable("Admin");
-
-                entity.Property(e => e.AdminId).HasColumnName("AdminID");
-
-                entity.Property(e => e.Email)
-                    .HasMaxLength(50)
-                    .IsUnicode(false);
-
-                entity.Property(e => e.FirstName).HasMaxLength(40);
-
-                entity.Property(e => e.LastName).HasMaxLength(25);
-
-                entity.Property(e => e.ModifiedAt)
-                    .IsRequired()
-                    .IsRowVersion()
-                    .IsConcurrencyToken()
-                    .HasColumnName("Modified_at");
-
-                entity.Property(e => e.Password)
-                    .HasMaxLength(50)
-                    .IsUnicode(false);
-
-                entity.Property(e => e.RememberToken)
-                    .HasMaxLength(100)
-                    .IsUnicode(false)
-                    .HasColumnName("Remember_token");
-            });
 
             modelBuilder.Entity<Category>(entity =>
             {
@@ -132,20 +54,6 @@ namespace TheFakeShop.Backend.Models
                     .WithMany(p => p.InverseParent)
                     .HasForeignKey(d => d.ParentId)
                     .HasConstraintName("FK__Categorie__Paren__24927208");
-            });
-
-            modelBuilder.Entity<District>(entity =>
-            {
-                entity.Property(e => e.DistrictId).HasColumnName("DistrictID");
-
-                entity.Property(e => e.DistrictName).HasMaxLength(30);
-
-                entity.Property(e => e.ProvinceId).HasColumnName("ProvinceID");
-
-                entity.HasOne(d => d.Province)
-                    .WithMany(p => p.Districts)
-                    .HasForeignKey(d => d.ProvinceId)
-                    .HasConstraintName("FK__Districts__Provi__31EC6D26");
             });
 
             modelBuilder.Entity<Product>(entity =>
@@ -229,15 +137,6 @@ namespace TheFakeShop.Backend.Models
                     .HasForeignKey(d => d.ProductId)
                     .HasConstraintName("FK__ProductRa__Produ__2D27B809");
             });
-
-            modelBuilder.Entity<Province>(entity =>
-            {
-                entity.Property(e => e.ProvinceId).HasColumnName("ProvinceID");
-
-                entity.Property(e => e.ProvinceName).HasMaxLength(30);
-            });
-
-            OnModelCreatingPartial(modelBuilder);
         }
 
         partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
