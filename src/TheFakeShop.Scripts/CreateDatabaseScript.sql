@@ -15,7 +15,7 @@ CREATE TABLE Products (
 	ProductName NVARCHAR(200),
 	Price MONEY,
 	InStock INT,
-	Description VARCHAR(1000),
+	Description NVARCHAR(2000),
 	CategoryID INT,
 	Created_at DATETIME NOT NULL DEFAULT (CURRENT_TIMESTAMP),
 	FOREIGN KEY(CategoryID) REFERENCES Categories(CategoryID)
@@ -23,7 +23,7 @@ CREATE TABLE Products (
 
 CREATE TABLE ProductImages (
 	PImageID INT IDENTITY(1,1) PRIMARY KEY,
-	ImageLink VARCHAR(100),
+	ImageLink VARCHAR(500),
 	ProductID INT,
 	Created_at DATETIME NOT NULL DEFAULT (CURRENT_TIMESTAMP),
 	FOREIGN KEY(ProductID) REFERENCES Products(ProductID)
@@ -89,7 +89,4 @@ INSERT INTO Categories(CategoryName,ParentID) VALUES (N'Dụng Cụ Trang Điể
 INSERT INTO Categories(CategoryName,ParentID) VALUES (N'Phụ Kiện Làm Sạch',6);
 INSERT INTO Categories(CategoryName,ParentID) VALUES (N'Dụng Cụ Massage',6);
 COMMIT TRANSACTION
-
-
-
 
