@@ -10,7 +10,7 @@ namespace TheFakeShop.Backend.Models
         public int PimageId { get; set; }
         public string ImageLink { get; set; }
         public int? ProductId { get; set; }
-        public byte[] ModifiedAt { get; set; }
+        public DateTime CreatedAt { get; set; }
 
         public virtual Product Product { get; set; }
     }
