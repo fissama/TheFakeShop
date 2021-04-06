@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace TheFakeShop.ShareModels
 {
-    class ProductViewModel
+    public class ProductViewModel
     {
         public int ProductId { get; set; }
 
@@ -16,5 +16,7 @@ namespace TheFakeShop.ShareModels
         public string Description { get; set; }
 
         public IList<string> ProductImages  { get; set; }
+
+        public IList<RatingViewModel> ratingViewModels { get; set; }
     }
 }

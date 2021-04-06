@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace TheFakeShop.ShareModels
 {
-    class RatingViewModel
+    public class RatingViewModel
     {
         public int PratingId { get; set; }
     
