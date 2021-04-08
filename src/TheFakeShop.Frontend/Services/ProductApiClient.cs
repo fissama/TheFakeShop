@@ -19,7 +19,7 @@ namespace TheFakeShop.Frontend.Services
         public async Task<IList<ProductViewModel>> GetProducts()
         {
             var client = _httpClientFactory.CreateClient();
-            var response = await client.GetAsync("https://localhost:44358/products");
+            var response = await client.GetAsync("https://localhost:44358/product");
             response.EnsureSuccessStatusCode();
 
             return await response.Content.ReadAsAsync<IList<ProductViewModel>>();
