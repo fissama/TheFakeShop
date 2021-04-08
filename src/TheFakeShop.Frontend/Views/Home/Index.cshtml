@@ -2,7 +2,32 @@
     ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+@model IList<TheFakeShop.ShareModels.ProductViewModel>
+
+<div class="container-fluid margin-custom">
+    <div class="row">
+        @foreach (var product in Model)
+        {
+            <div class="col-lg-3 col-md-6 mb-4">
+                <div class="card h-100">
+                    <a href="#"><img class="card-img-top" src="@product.ProductImages.FirstOrDefault()" alt=""></a>
+                    <div class="card-body">
+                        <h4 class="card-title">
+                            <a href="#">@product.ProductName</a>
+                        </h4>
+                        <h5>@string.Concat(string.Format("{0:#,##0}", @product.Price)," vnđ")</h5>
+                        <p class="card-text">
+                        @if (product.Description.Length >= 100)
+                        {
+                            @string.Concat(@product.Description.ToString().Substring(0,97), "...")
+                        } else {
+                            @product.Description
+                        }</p>
+                    </div>
+                </div>
+            </div>
+        }
+
+    </div>
 </div>
+
