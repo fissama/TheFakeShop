@@ -52,14 +52,9 @@ INSERT INTO Categories(CategoryName,ParentID) VALUES (N'Phụ Kiện',null);
 INSERT INTO Categories(CategoryName,ParentID) VALUES (N'Mặt Nạ',1);
 INSERT INTO Categories(CategoryName,ParentID) VALUES (N'Nước Cân Bằng',1);
 INSERT INTO Categories(CategoryName,ParentID) VALUES (N'Xịt Khoáng',1);
-INSERT INTO Categories(CategoryName,ParentID) VALUES (N'Sữa Dưỡng',1);
 INSERT INTO Categories(CategoryName,ParentID) VALUES (N'Tinh Chất Dưỡng',1);
-INSERT INTO Categories(CategoryName,ParentID) VALUES (N'Kem Dưỡng Mắt',1);
 INSERT INTO Categories(CategoryName,ParentID) VALUES (N'Kem Dưỡng Da Mặt',1);
-INSERT INTO Categories(CategoryName,ParentID) VALUES (N'Dưỡng Dành Cho Nam Giới',1);
 INSERT INTO Categories(CategoryName,ParentID) VALUES (N'Kem Chống Nắng',1);
-INSERT INTO Categories(CategoryName,ParentID) VALUES (N'Bộ Dưỡng Da',1);
-INSERT INTO Categories(CategoryName,ParentID) VALUES (N'Dưỡng Da Khác',1);
 INSERT INTO Categories(CategoryName,ParentID) VALUES (N'Sữa Rửa Mặt',2);
 INSERT INTO Categories(CategoryName,ParentID) VALUES (N'Sản Phẩm Tẩy Trang',2);
 INSERT INTO Categories(CategoryName,ParentID) VALUES (N'Tẩy Trang Mắt Và Môi',2);
@@ -70,7 +65,6 @@ INSERT INTO Categories(CategoryName,ParentID) VALUES (N'Kem Lót',3);
 INSERT INTO Categories(CategoryName,ParentID) VALUES (N'Tạo Khối/ Tạo Sáng',3);
 INSERT INTO Categories(CategoryName,ParentID) VALUES (N'Kem Che Khuyết Điểm',3);
 INSERT INTO Categories(CategoryName,ParentID) VALUES (N'Kem Nền Đa Năng BB/ CC Cream',3);
-INSERT INTO Categories(CategoryName,ParentID) VALUES (N'Phấn Phủ',3);
 INSERT INTO Categories(CategoryName,ParentID) VALUES (N'Son',4);
 INSERT INTO Categories(CategoryName,ParentID) VALUES (N'Trang Điểm Mắt',4);
 INSERT INTO Categories(CategoryName,ParentID) VALUES (N'Má Hồng',4);
@@ -89,4 +83,3 @@ INSERT INTO Categories(CategoryName,ParentID) VALUES (N'Dụng Cụ Trang Điể
 INSERT INTO Categories(CategoryName,ParentID) VALUES (N'Phụ Kiện Làm Sạch',6);
 INSERT INTO Categories(CategoryName,ParentID) VALUES (N'Dụng Cụ Massage',6);
 COMMIT TRANSACTION
-
