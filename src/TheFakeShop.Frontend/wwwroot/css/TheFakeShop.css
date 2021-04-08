@@ -9,3 +9,33 @@
 #searchArea {
     margin-top:15px;
 }
+
+.normal-category-flex {
+    display: flex !important;
+    flex-direction: column !important;
+    flex-wrap: nowrap !important;
+    justify-content: center !important;
+    align-items: stretch !important;
+    align-content: stretch !important;
+}
+
+.dropdown:hover .dropdown-content {
+    display: inline-block !important;
+    flex-direction: row !important;
+    flex-wrap: nowrap !important;
+    justify-content: center !important;
+    align-items: stretch !important;
+    align-content: stretch !important;
+}
+
+.dropdown {
+    position: relative;
+    display: block;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+}
+

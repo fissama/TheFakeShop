@@ -1,0 +1,15 @@
+﻿@model IList<TheFakeShop.ShareModels.CategoryViewModel>
+
+<ul>
+    @foreach (var category in Model)
+    {
+        if (category.parentId == null)
+        {
+        <li class="dropdown-content" href="#">
+            <b>@category.CategoryName</b>
+          
+         </li>
+        }
+        
+    }
+</ul>
