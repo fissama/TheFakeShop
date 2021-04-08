@@ -6,21 +6,25 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using TheFakeShop.Frontend.Models;
+using TheFakeShop.Frontend.Services;
 
 namespace TheFakeShop.Frontend.Controllers
 {
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        private readonly IProductApiClient _productClient;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger, IProductApiClient productClient)
         {
             _logger = logger;
+            _productClient = productClient;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            return View();
+            var products = await _productClient.GetProducts();
+            return View(products);
         }
 
         public IActionResult Privacy()

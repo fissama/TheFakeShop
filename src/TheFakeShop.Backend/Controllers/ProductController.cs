@@ -31,6 +31,7 @@ namespace TheFakeShop.Backend.Controllers
                     x.ProductId,
                     x.ProductName,
                     x.Price,
+                    x.Description,
                     x.ProductImages
                 }).ToListAsync();
 
@@ -42,6 +43,7 @@ namespace TheFakeShop.Backend.Controllers
                     ProductId = x.ProductId,
                     ProductName = x.ProductName,
                     Price = x.Price,
+                    Description = x.Description,
                     ProductImages = x.ProductImages.Select(x => x.ImageLink).ToList()
                 }).ToList();
 
