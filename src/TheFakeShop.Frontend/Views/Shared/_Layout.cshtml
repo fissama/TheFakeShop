@@ -4,17 +4,21 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - TheFakeShop</title>
-    <link rel="stylesheet" href="~/css/site.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/TheFakeShop.css" asp-append-version="true" />
 </head>
 <body>
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container">
-                <a asp-area="" asp-controller="Home" asp-action="Index" itemprop="url">
-                    <img id="logoArea" src="~/assets/logo-THEFACESHOP.jpg" width="200" alt="TheFakeShop_Logo" />
-                </a>                
+            <div class="container-fluid">
+                <div class="dropdown">
+                    <a asp-area="" asp-controller="Home" asp-action="Index" itemprop="url">
+                        <img id="logoArea" src="~/assets/logo-THEFACESHOP.jpg" width="200" alt="TheFakeShop_Logo" />
+                    </a>
+                    @await Component.InvokeAsync("CategoryMenu")
+                </div>
+                               
                 @*<a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">TheFakeShop.Frontend</a>*@
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
@@ -36,7 +40,7 @@
             </div>
         </nav>
     </header>
-    <div class="container">
+    <div class="container-fluid">
         <main role="main" class="pb-3">
             @RenderBody()
         </main>
