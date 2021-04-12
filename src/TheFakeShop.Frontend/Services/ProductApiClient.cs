@@ -24,5 +24,21 @@ namespace TheFakeShop.Frontend.Services
 
             return await response.Content.ReadAsAsync<IList<ProductViewModel>>();
         }
+        public async Task<ProductViewModel> GetProductById(int id)
+        {
+            var client = _httpClientFactory.CreateClient();
+            var response = await client.GetAsync("https://localhost:44358/product/"+id.ToString());
+            response.EnsureSuccessStatusCode();
+
+            return await response.Content.ReadAsAsync<ProductViewModel>();
+        }
+        public async Task<IList<ProductViewModel>> GetProductsByCategoryId(int id)
+        {
+            var client = _httpClientFactory.CreateClient();
+            var response = await client.GetAsync("https://localhost:44358/product/CategoryId="+ id.ToString());
+            response.EnsureSuccessStatusCode();
+
+            return await response.Content.ReadAsAsync<IList<ProductViewModel>>();
+        }
     }
 }
