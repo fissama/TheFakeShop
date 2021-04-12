@@ -50,6 +50,69 @@ namespace TheFakeShop.Backend.Controllers
             return prodVMs;
         }
 
+        [HttpGet("CategoryId={id}")]
+        [AllowAnonymous]
+        public async Task<ActionResult<IEnumerable<ProductViewModel>>> GetProductsByCategoryId(int id)
+        {
+            var category = await _context.Categories.FindAsync(id);
+            if(category == null)
+            {
+                return NotFound();
+            }
+
+            //var products = await _context.Products.Include("ProductImages").ToListAsync();
+            if (category.ParentId == null)
+            {
+                var childCategories = await _context.Categories.Where(x => x.ParentId == id).Select(x => x.CategoryId).ToListAsync();
+
+                var products = await _context.Products.Include("ProductImages").Where(x => childCategories.Contains((int)x.CategoryId))
+                .Select(x =>
+                new
+                {
+                    x.ProductId,
+                    x.ProductName,
+                    x.Price,
+                    x.Description,
+                    x.ProductImages
+                }).ToListAsync();
+
+                var prodVMs = products.Select(x =>
+                new ProductViewModel
+                {
+                    ProductId = x.ProductId,
+                    ProductName = x.ProductName,
+                    Price = x.Price,
+                    Description = x.Description,
+                    ProductImages = x.ProductImages.Select(x => x.ImageLink).ToList()
+                }).ToList();
+                return prodVMs;
+            }
+            else
+            {
+                var products = await _context.Products.Include("ProductImages").Where(x => x.CategoryId == id)
+                .Select(x =>
+                new
+                {
+                    x.ProductId,
+                    x.ProductName,
+                    x.Price,
+                    x.Description,
+                    x.ProductImages
+                }).ToListAsync();
+                var prodVMs = products.Select(x =>
+                new ProductViewModel
+                {
+                    ProductId = x.ProductId,
+                    ProductName = x.ProductName,
+                    Price = x.Price,
+                    Description = x.Description,
+                    ProductImages = x.ProductImages.Select(x => x.ImageLink).ToList()
+                }).ToList();
+
+                return prodVMs;
+            }
+        }
+
         [HttpGet("{id}")]
         [AllowAnonymous]
         public async Task<ActionResult<ProductViewModel>> GetProduct(int id)
