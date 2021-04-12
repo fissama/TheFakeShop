@@ -11,6 +11,7 @@
 }
 
 .body-area {
+    padding-top:10px;
     background: #ffe680;
     /*#fff5cc*/
 }
@@ -35,3 +36,137 @@
     display: flex;
 }
 
+.menu {
+    display: inline-block;
+    line-height: 40px;
+}
+
+.align-please {
+    text-align:right;
+    align-self:center;
+}
+
+.no-padding-please {
+    padding-top:5px !important;
+    padding-bottom:5px !important;
+}
+
+.dropdown {
+    position: relative !important;
+    display: inline-block !important;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    padding: 12px 16px;
+    z-index: 1;
+}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+.space-please {
+    margin-left:30px;
+    margin-right:30px;
+}
+
+.cost-style {
+    color:red !important;
+    font-weight: bold;
+    font-size:30px;
+}
+
+.product-name-style {
+    font-size: 32px;
+    color: #e67300 !important;
+}
+
+.space-me-please {
+    margin-top:10px;
+    margin-left:10px;
+    margin-right:10px;
+    margin-bottom:10px;
+}
+
+.input-width {
+    width:50px;
+}
+
+.tab-title-custom {
+    width: 300px;
+    height: 30px;
+    text-align:center;
+}
+
+.tab-content-custom {
+    padding-left: 20px;
+    padding-right: 20px;
+    background: wheat;
+}
+
+.checked {
+    color:orange;
+}
+
+/* Ratings widget */
+.rate {
+    display: inline-block;
+    border: 0;
+}
+    /* Hide radio */
+    .rate > input {
+        display: none;
+    }
+    /* Order correctly by floating highest to the right */
+    .rate > label {
+        float: right;
+    }
+        /* The star of the show */
+        .rate > label:before {
+            display: inline-block;
+            font-size: 1.1rem;
+            padding: .3rem .2rem;
+            margin: 0;
+            cursor: pointer;
+            font-family: FontAwesome;
+            /*content: "\f005 ";*/ /* full star */
+        }
+        /* Zero stars rating */
+        /*.rate > label:last-child:before {
+            content: "\f006 ";*/ /* empty star outline */
+        /*}*/
+    /* Half star trick */
+    .rate .half:before {
+        /*content: "\f089 ";*/ /* half star no outline */
+        position: absolute;
+        padding-right: 0;
+    }
+/* Click + hover color */
+input:checked ~ label, /* color current and previous stars on checked */
+label:hover, label:hover ~ label {
+    color:orange;
+    /*color: #73B100;*/
+}
+    /* color previous stars on hover */
+
+    /* Hover highlights */
+    input:checked + label:hover, input:checked ~ label:hover, /* highlight current and previous stars */
+    input:checked ~ label:hover ~ label, /* highlight previous selected stars for new rating */
+    label:hover ~ input:checked ~ label /* highlight previous selected stars */ {
+        color: orange;
+    } 
+
+    .title-rating-custom {
+        margin-top:12px;
+        width:99.5% !important;
+        margin-left:0px !important;
+    }
+
+    .no-margin-please {
+        margin:0px !important;
+    }
