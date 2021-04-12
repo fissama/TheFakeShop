@@ -1,22 +1,25 @@
 ﻿@model IList<TheFakeShop.ShareModels.CategoryViewModel>
 
-<ul class="dropdown-content">
-    @foreach (var category in Model)
-    {
-        if (category.parentId == null)
+<ul class="menu space-please">
+        @foreach (var category in Model)
         {
-                <li class="list-group-item list-group-item-action parent-category" href="#">
-                    <b>@category.CategoryName</b>
-                    <ul class="list-group list-group-flush child-category">
-                        @foreach (var el in Model.Where(x => x.parentId == category.Id))
-                        {
-                            <li class="list-group-item list-group-item-action list-group-item-light" href="#">
-                                <a>@el.CategoryName</a>
-                            </li>
-                        }
-                    </ul>
-                </li>
-        }
+            if (category.parentId == null)
+            {
+                <div class="dropdown space-please">
+                    <li>
 
-    }
+                        <a href="~/category/@category.Id">@category.CategoryName</a>
+                        <ul class="dropdown-content">
+                            @foreach (var el in Model.Where(x => x.parentId == category.Id))
+                            {
+                                <li>
+                                    <a href="~/category/@el.Id">@el.CategoryName</a>
+                                </li>
+                            }
+                        </ul>
+                    </li>
+                </div>
+            }
+
+        }
 </ul>
