@@ -1,9 +1,9 @@
-﻿@{
+﻿
+@{
     ViewData["Title"] = "Product Page";
 }
 
 @model TheFakeShop.ShareModels.ProductViewModel
-
 <div>
             
             
@@ -92,33 +92,28 @@
 
                             <p><b>Write Your Review</b></p>
 
-                            <form action="#">
-                                <div>
+                            <form asp-controller="Product" asp-action="Rating" method="post">
                                     <b>Choose your rating: </b>
                                     <fieldset class="rate">
-                                        <input type="radio" id="rating10" name="rating" value="10" /><label for="rating10" title="5 stars"><i class="fas fa-star"></i></label>
-                                        <input type="radio" id="rating8" name="rating" value="8" /><label for="rating8" title="4 stars"><i class="fas fa-star"></i></label>
-                                        <input type="radio" id="rating6" name="rating" value="6" /><label for="rating6" title="3 stars"><i class="fas fa-star"></i></label>
-                                        <input type="radio" id="rating4" name="rating" value="4" /><label for="rating4" title="2 star"><i class="fas fa-star"></i></label>
-                                        <input type="radio" id="rating2" name="rating" value="2" /><label for="rating2" title="1 star"><i class="fas fa-star"></i></label>
+                                        <input type="radio" id="rating5" name="Rating" value="5" /><label for="rating5" title="5 stars"><i class="fas fa-star"></i></label>
+                                        <input type="radio" id="rating4" name="Rating" value="4" /><label for="rating4" title="4 stars"><i class="fas fa-star"></i></label>
+                                        <input type="radio" id="rating3" name="Rating" value="3" /><label for="rating3" title="3 stars"><i class="fas fa-star"></i></label>
+                                        <input type="radio" id="rating2" name="Rating" value="2" /><label for="rating2" title="2 star"><i class="fas fa-star"></i></label>
+                                        <input type="radio" id="rating1" name="Rating" value="1" /><label for="rating1" title="1 star"><i class="fas fa-star"></i></label>
                                     </fieldset>
-                                </div>
-                                <div>
                                     <span>
-                                        <input type="text" placeholder="Your Name" />
-                                        <input type="email" placeholder="Email Address" />
+                                        <input hidden value="@Model.ProductId" name="ProductId" />
+                                        <input name="CustomerName" type="text" placeholder="Your Name" />
+                                        <input name="CustomerEmail" type="email" placeholder="Email Address" />
                                     </span>
-                                </div>
-                                <div>
                                     <span>
-                                        <input class="title-rating-custom" type="text" placeholder="Title your rating" />
+                                        <input name="Title" class="title-rating-custom" type="text" placeholder="Title your rating" />
                                     </span>
-                                </div>
                                 
                                 
-                                <textarea name="" placeholder="Please give me some real reviews!"></textarea>
+                                <textarea name="Content" placeholder="Please give me some real reviews!"></textarea>
 
-                                <button type="button" class="btn btn-primary btn-lg btn-block">Đăng</button>
+                                <button type="submit" class="btn btn-primary btn-lg btn-block">Đăng</button>
                             </form>
                         </div>
                     </div>
