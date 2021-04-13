@@ -11,6 +11,7 @@ using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Threading.Tasks;
+using TheFakeShop.Frontend.Services;
 
 namespace TheFakeShop.Frontend
 {
@@ -60,6 +61,10 @@ namespace TheFakeShop.Frontend
 
                     options.ClaimActions.MapJsonKey("website", "website");
                 });
+
+            services.AddHttpClient();
+            services.AddTransient<ICategoryApiClient,CategoryApiClient>();
+            services.AddTransient<IProductApiClient, ProductApiClient>();
 
             services.AddControllersWithViews();
         }
