@@ -9,9 +9,9 @@ namespace TheFakeShop.ShareModels
 {
     public class RatingCreateRequest
     {
-        [Required]
         public int PratingId { get; set; }
 
+        [Required]
         public string CustomerName { get; set; }
 
         public string CustomerEmail { get; set; }

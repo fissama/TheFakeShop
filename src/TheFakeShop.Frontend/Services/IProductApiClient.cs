@@ -11,5 +11,7 @@ namespace TheFakeShop.Frontend.Services
         Task<ProductViewModel> GetProductById(int id);
 
         Task<IList<ProductViewModel>> GetProductsByCategoryId(int id);
+
+        Task<bool> Rating(RatingCreateRequest rateRequest);
     }
 }

@@ -53,7 +53,7 @@ namespace TheFakeShop.Backend.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<RatingViewModel>> PostRating(RatingCreateRequest rateRequest)
+        public async Task<IActionResult> PostRating(RatingCreateRequest rateRequest)
         {
             var rating = new ProductRating
             {
@@ -68,8 +68,7 @@ namespace TheFakeShop.Backend.Controllers
             _context.ProductRatings.Add(rating);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetRating", new { id = rating.PratingId }, new RatingViewModel { PratingId = rating.PratingId, CustomerName = rating.CustomerName, 
-                CustomerEmail = rating.CustomerEmail, Rating = rating.Rating, Title = rating.Title, Content = rating.Content, ProductID = rating.ProductId});
+            return StatusCode(201);
         }
 
         [HttpDelete("{id}")]
