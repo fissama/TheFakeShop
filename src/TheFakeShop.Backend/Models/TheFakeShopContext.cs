@@ -44,7 +44,7 @@ namespace TheFakeShop.Backend.Models
                 entity.Property(e => e.CreatedAt)
                     .HasColumnType("datetime")
                     .HasColumnName("Created_at")
-                    .HasDefaultValueSql("(getdate())");
+                    .HasDefaultValueSql("(CURRENT_TIMESTAMP)");
 
                 entity.Property(e => e.ParentId).HasColumnName("ParentID");
 
@@ -63,11 +63,9 @@ namespace TheFakeShop.Backend.Models
                 entity.Property(e => e.CreatedAt)
                     .HasColumnType("datetime")
                     .HasColumnName("Created_at")
-                    .HasDefaultValueSql("(getdate())");
+                    .HasDefaultValueSql("(CURRENT_TIMESTAMP)");
 
-                entity.Property(e => e.Description)
-                    .HasMaxLength(1000)
-                    .IsUnicode(false);
+                entity.Property(e => e.Description).HasMaxLength(2000);
 
                 entity.Property(e => e.Price).HasColumnType("money");
 
@@ -82,17 +80,17 @@ namespace TheFakeShop.Backend.Models
             modelBuilder.Entity<ProductImage>(entity =>
             {
                 entity.HasKey(e => e.PimageId)
-                    .HasName("PK__ProductI__218DDF1995E37A9F");
+                    .HasName("PK__ProductI__218DDF19817897A7");
 
                 entity.Property(e => e.PimageId).HasColumnName("PImageID");
 
                 entity.Property(e => e.CreatedAt)
                     .HasColumnType("datetime")
                     .HasColumnName("Created_at")
-                    .HasDefaultValueSql("(getdate())");
+                    .HasDefaultValueSql("(CURRENT_TIMESTAMP)");
 
                 entity.Property(e => e.ImageLink)
-                    .HasMaxLength(100)
+                    .HasMaxLength(500)
                     .IsUnicode(false);
 
                 entity.Property(e => e.ProductId).HasColumnName("ProductID");
@@ -106,7 +104,7 @@ namespace TheFakeShop.Backend.Models
             modelBuilder.Entity<ProductRating>(entity =>
             {
                 entity.HasKey(e => e.PratingId)
-                    .HasName("PK__ProductR__2289446B968049FF");
+                    .HasName("PK__ProductR__2289446B75C425AE");
 
                 entity.Property(e => e.PratingId).HasColumnName("PRatingID");
 
@@ -115,7 +113,7 @@ namespace TheFakeShop.Backend.Models
                 entity.Property(e => e.CreatedAt)
                     .HasColumnType("datetime")
                     .HasColumnName("Created_at")
-                    .HasDefaultValueSql("(getdate())");
+                    .HasDefaultValueSql("(CURRENT_TIMESTAMP)");
 
                 entity.Property(e => e.CustomerEmail)
                     .HasMaxLength(50)
