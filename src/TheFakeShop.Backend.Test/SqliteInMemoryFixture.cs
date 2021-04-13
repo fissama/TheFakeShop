@@ -10,7 +10,7 @@ using TheFakeShop.Backend.Models;
 
 namespace TheFakeShop.Backend.Test
 {
-    class SqliteInMemoryFixture : IDisposable
+    public class SqliteInMemoryFixture : IDisposable
     {
         private IServiceScope _serviceScope;
         private SqliteConnection _connection;
