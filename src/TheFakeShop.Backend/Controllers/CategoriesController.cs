@@ -63,7 +63,7 @@ namespace TheFakeShop.Backend.Controllers
             }
 
             category.CategoryName = cateRequest.Name;
-            category.ParentId = cateRequest.parentId;
+            category.ParentId = cateRequest.parentId == 0 ? null : cateRequest.parentId;
             await _context.SaveChangesAsync();
 
             return NoContent();
@@ -75,7 +75,7 @@ namespace TheFakeShop.Backend.Controllers
             var category = new Category
             {
                 CategoryName = cateRequest.Name,
-                ParentId = cateRequest.parentId
+                ParentId = cateRequest.parentId==0?null:cateRequest.parentId
             };
 
             _context.Categories.Add(category);
