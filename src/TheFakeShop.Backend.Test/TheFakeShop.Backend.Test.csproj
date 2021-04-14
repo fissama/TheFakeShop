@@ -23,6 +23,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\TheFakeShop.Backend\TheFakeShop.Backend.csproj" />
+    <ProjectReference Include="..\TheFakeShop.Frontend\TheFakeShop.Frontend.csproj" />
   </ItemGroup>
 
 </Project>
