@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.Mvc.ViewComponents;
 using Moq;
 using System;
@@ -16,31 +18,30 @@ namespace TheFakeShop.Backend.Test.TestViewComponent
 {
     public class CategoryViewComponentTest : IClassFixture<SqliteInMemoryFixture>
     {
-        private readonly SqliteInMemoryFixture _fixture;
-        private readonly CategoryMenuViewComponent _categoryMenu;
-
-        public CategoryViewComponentTest(SqliteInMemoryFixture fixture)
+        [Fact]
+        public async Task PostCategory_Success()
         {
-            _fixture = fixture;
-            _fixture.CreateDatabase();
-            var dbContext = _fixture.Context;
-            var category = new CategoryPostRequest { Name = "Test category" };
+            //Arrange View Component
+            var httpContext = new DefaultHttpContext();
+            var viewContext = new ViewContext();
+            viewContext.HttpContext = httpContext;
+            var viewComponentContext = new ViewComponentContext();
+            viewComponentContext.ViewContext = viewContext;
 
-            var controller = new CategoriesController(dbContext);
-            var result = controller.PostCategory(category);
-            var mock = new Mock<ICategoryApiClient>();
-            _categoryMenu = new CategoryMenuViewComponent(mock.Object);
+            //Arrange Mock Client
+            var categoryApiClientMock = new Mock<ICategoryApiClient>();
+            categoryApiClientMock.Setup(c => c.GetCategories()).Returns(getCategoriesValue());
+            var viewComponent = new CategoryMenuViewComponent(categoryApiClientMock.Object);
+
+            //Act - Check final result is viewcomponent
+            var result = viewComponent.InvokeAsync();
+            var createdAtActionResult = Assert.IsType<Task<IViewComponentResult>>(result);
         }
 
-        [Fact]
-        public async Task GetCategory_Success()
+        private Task<IList<CategoryViewModel>> getCategoriesValue()
         {
-            var result = await _categoryMenu.InvokeAsync();
-            var action = ((ViewViewComponentResult)result);
-            var actionResult = action.ViewData;
-            /*var createdAtActionResult = Assert.IsType<IViewComponentResult>(result);
-            var returnValue = Assert.IsType<CategoryViewModel>(createdAtActionResult);*/
-           // Assert.Equal();
+            IList<CategoryViewModel> categoriesValue = new List<CategoryViewModel>();
+            return Task.FromResult(categoriesValue);
         }
     }
 }
