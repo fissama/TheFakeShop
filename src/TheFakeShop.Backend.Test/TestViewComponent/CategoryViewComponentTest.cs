@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ViewComponents;
 using Moq;
 using System;
 using System.Collections.Generic;
@@ -34,9 +35,11 @@ namespace TheFakeShop.Backend.Test.TestViewComponent
         [Fact]
         public async Task GetCategory_Success()
         {
-            var result = _categoryMenu.InvokeAsync();
-            var createdAtActionResult = Assert.IsType<IViewComponentResult>(result);
-          /*  var returnValue = Assert.IsType<CategoryViewModel>(createdAtActionResult.Value);*/
+            var result = await _categoryMenu.InvokeAsync();
+            var action = ((ViewViewComponentResult)result);
+            var actionResult = action.ViewData;
+            /*var createdAtActionResult = Assert.IsType<IViewComponentResult>(result);
+            var returnValue = Assert.IsType<CategoryViewModel>(createdAtActionResult);*/
            // Assert.Equal();
         }
     }
