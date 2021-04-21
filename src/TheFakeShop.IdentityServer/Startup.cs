@@ -37,6 +37,8 @@ namespace TheFakeShop.IdentityServer
                 .AddRoles<IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>();
 
+            Config.InitConfiguration(Configuration);
+
             services.AddIdentityServer(options =>
             {
                 options.Events.RaiseErrorEvents = true;
@@ -64,10 +66,12 @@ namespace TheFakeShop.IdentityServer
             }
             else
             {
+                app.UseMigrationsEndPoint();
                 app.UseExceptionHandler("/Home/Error");
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
+            
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 
