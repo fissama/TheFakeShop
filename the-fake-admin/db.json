@@ -1,0 +1,23 @@
+{
+    "posts":[
+        {
+            "id":"1",
+            "title":"post1",
+            "body":"demo 1",
+            "publishedAt":"21/4/2021"
+        },
+        {
+            "id":"2",
+            "title":"post2",
+            "body":"demo 2",
+            "publishedAt":"21/4/2021"
+        }
+    ],
+    "user":[
+        {
+            "id":"1",
+            "name":"fis",
+            "email":"fis@example.vn"
+        }
+    ]
+}
