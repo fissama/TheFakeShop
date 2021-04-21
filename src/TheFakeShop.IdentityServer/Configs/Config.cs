@@ -1,7 +1,9 @@
 ﻿using IdentityServer4;
 using IdentityServer4.Models;
+using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -9,6 +11,20 @@ namespace TheFakeShop.IdentityServer.Configs
 {
     public static class Config
     {
+        private static IConfiguration _configuration;
+
+        public static IConfiguration Configuration
+        {
+            get
+            {
+                return _configuration;
+            }
+        }
+
+        public static void InitConfiguration(IConfiguration configuration) {
+            _configuration = configuration;
+        }
+
         public static IEnumerable<IdentityResource> IdentityResources =>
             new List<IdentityResource>
             {
@@ -39,14 +55,15 @@ namespace TheFakeShop.IdentityServer.Configs
                 // interactive ASP.NET Core MVC client
                 new Client
                 {
+                    
                     ClientId = "mvc",
                     ClientSecrets = { new Secret("secret".Sha256()) },
 
                     AllowedGrantTypes = GrantTypes.Code,
 
-                    RedirectUris = { "https://localhost:44380/signin-oidc" },
+                    RedirectUris = { _configuration.GetValue<string>("Frontend")+"signin-oidc" },
 
-                    PostLogoutRedirectUris = { "https://localhost:44380/signout-callback-oidc" },
+                    PostLogoutRedirectUris = { _configuration.GetValue<string>("Frontend")+ "signout-callback-oidc" },
 
                     AllowedScopes = new List<string>
                     {

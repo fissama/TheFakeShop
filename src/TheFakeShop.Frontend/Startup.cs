@@ -5,9 +5,11 @@ using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.IdentityModel.Protocols;
 using Microsoft.IdentityModel.Tokens;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Threading.Tasks;
@@ -39,7 +41,7 @@ namespace TheFakeShop.Frontend
                 {
                     options.SignInScheme = "Cookies";
 
-                    options.Authority = "https://localhost:44334";
+                    options.Authority = Configuration.GetValue<string>("IdentityServer");// "https://localhost:44334";
                     options.RequireHttpsMetadata = false;
 
                     options.ClientId = "mvc";
