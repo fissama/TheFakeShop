@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using Microsoft.Extensions.Configuration;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,16 +13,18 @@ namespace TheFakeShop.Frontend.Services
     public class ProductApiClient : IProductApiClient
     {
         private readonly IHttpClientFactory _httpClientFactory;
+        private readonly IConfiguration _configuration;
 
-        public ProductApiClient(IHttpClientFactory httpClientFactory)
+        public ProductApiClient(IHttpClientFactory httpClientFactory, IConfiguration configuration)
         {
             _httpClientFactory = httpClientFactory;
+            _configuration = configuration;
         }
 
         public async Task<IList<ProductViewModel>> GetProducts()
         {
             var client = _httpClientFactory.CreateClient();
-            var response = await client.GetAsync("https://localhost:44358/product");
+            var response = await client.GetAsync(_configuration.GetValue<string>("Backend")+"product");
             response.EnsureSuccessStatusCode();
 
             return await response.Content.ReadAsAsync<IList<ProductViewModel>>();
@@ -29,7 +32,7 @@ namespace TheFakeShop.Frontend.Services
         public async Task<ProductViewModel> GetProductById(int id)
         {
             var client = _httpClientFactory.CreateClient();
-            var response = await client.GetAsync("https://localhost:44358/product/"+id.ToString());
+            var response = await client.GetAsync(_configuration.GetValue<string>("Backend")+"product/" + id.ToString());
             response.EnsureSuccessStatusCode();
 
             return await response.Content.ReadAsAsync<ProductViewModel>();
@@ -37,7 +40,7 @@ namespace TheFakeShop.Frontend.Services
         public async Task<IList<ProductViewModel>> GetProductsByCategoryId(int id)
         {
             var client = _httpClientFactory.CreateClient();
-            var response = await client.GetAsync("https://localhost:44358/product/CategoryId="+ id.ToString());
+            var response = await client.GetAsync(_configuration.GetValue<string>("Backend") + "product/CategoryId="+ id.ToString());
             response.EnsureSuccessStatusCode();
 
             return await response.Content.ReadAsAsync<IList<ProductViewModel>>();
@@ -51,7 +54,7 @@ namespace TheFakeShop.Frontend.Services
             
             var data = new StringContent(json, Encoding.UTF8, "application/json");
 
-            var res = await client.PostAsync("https://localhost:44358/Rating", data);
+            var res = await client.PostAsync(_configuration.GetValue<string>("Backend") +"Rating", data);
 
             res.EnsureSuccessStatusCode();
 
