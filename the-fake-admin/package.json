@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "server": "json-server --watch db.json --port 7000",
+    "server": "json-server --watch db.json --port 7000 --middlewares ./range.js",
     "client": "npm start --prefix client",
     "dev":"concurrently \"npm run server\" \"npm run client\""
   },
