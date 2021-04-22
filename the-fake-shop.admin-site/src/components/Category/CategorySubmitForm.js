@@ -1,30 +1,34 @@
 import React, { useState, useEffect } from "react";
 import { useFormik } from "formik";
-import { withRouter } from "react-router-dom";
+import { withRouter,useParams } from "react-router-dom";
 import CategoryService from "../../services/CategoryService";
 
-const CategorySubmitForm = ({ match }) => {
+const CategorySubmitForm = ({match}) => {
   const [Category, setCategory] = useState({});
-  useEffect(() => {
-    fetchCategory(match.params.id);
-  }, [match.params.id]);
-
-  console.log(match.params.id)
-  const fetchCategory = (itemId) => {
-    CategoryService.get(itemId).then(({ data }) => {
-      setCategory(data);
-    });
-  };
-
   const formik = useFormik({
     initialValues: {
-      CategoryName: Category === null ? '' : Category.categoryName,
-      ParentId: Category === null ? '' : Category.parentId,
+      CategoryName: '',
+      ParentId: ''
     },
     onSubmit: (values) => {
       alert(JSON.stringify(values, null, 2));
     },
   });
+
+  useEffect(() => {
+    fetchCategory(match.params.id);
+    formik.values.CategoryName=Category.categoryName;
+    formik.values.ParentId=Category.parentId;
+  }, [match.params.id]);
+  console.log(Category);
+
+  const fetchCategory = (itemId) => {
+    if(itemId !== undefined){
+    CategoryService.get(itemId).then(({ data }) => {
+      setCategory(data);
+    });
+  }
+  };
   return (
     <form onSubmit={formik.handleSubmit}>
       <label htmlFor="CategoryName">Category Name</label>

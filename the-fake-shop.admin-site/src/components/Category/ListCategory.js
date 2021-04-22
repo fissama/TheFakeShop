@@ -34,7 +34,7 @@ const ListCategory = () => {
             <th>Category Name</th>
             <th>Parent Category</th>
             <th className="text-right">
-              <Link to={`/modifiedCategory/${0}`} >
+              <Link to={`/modifiedCategory/`} >
                 <Button //onClick={() => onEdit && onEdit(item)}
                   color="link"
                   className="text-success"
@@ -58,11 +58,14 @@ const ListCategory = () => {
                         .categoryName}
                 </td>
                 <td className="text-right">
-                  <Button //onClick={() => onEdit && onEdit(item)}
-                    color="link"
-                  >
-                    Edit
-                  </Button>
+                  <Link to={`/modifiedCategory/${item.id}`} >
+                    <Button //onClick={() => onEdit && onEdit(item)}
+                      color="link"
+                    >
+                      Edit
+                    </Button>
+                  </Link>
+                  
                   <Button
                     onClick={() => handleDelete(item.id)}
                     color="link"
