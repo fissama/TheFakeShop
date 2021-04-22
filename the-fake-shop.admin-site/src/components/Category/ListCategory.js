@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import { Table, Button } from "reactstrap";
 import CategoryService from "../../services/CategoryService";
 
@@ -18,9 +19,8 @@ const ListCategory = () => {
   const handleDelete = (itemId) => {
     let result = window.confirm("Delete this category?");
     if (result) {
-      CategoryService.delete(itemId)
-      .then(() => {
-        setCategories(Categories.filter((item)=>item.id!==itemId));
+      CategoryService.delete(itemId).then(() => {
+        setCategories(Categories.filter((item) => item.id !== itemId));
       });
     }
   };
@@ -34,12 +34,14 @@ const ListCategory = () => {
             <th>Category Name</th>
             <th>Parent Category</th>
             <th className="text-right">
-              <Button //onClick={() => onEdit && onEdit(item)}
-                color="link"
-                className="text-success"
-              >
-                Create
-              </Button>
+              <Link to={`/modifiedCategory/${0}`} >
+                <Button //onClick={() => onEdit && onEdit(item)}
+                  color="link"
+                  className="text-success"
+                >
+                  Create
+                </Button>
+              </Link>
             </th>
           </tr>
         </thead>

@@ -1,15 +1,20 @@
 import React from "react";
 import ListCategory from "./components/Category/ListCategory";
 import { Route, BrowserRouter, Switch } from "react-router-dom";
-import { LIST_CATEGORY } from "./constants/page";
+import { LIST_CATEGORY, CREATE_CATEGORY } from "./constants/page";
 import "bootstrap/dist/css/bootstrap.min.css";
+import CategorySubmitForm from "./components/Category/CategorySubmitForm";
 
 function App() {
   return (
     <BrowserRouter>
       <Switch>
-        <Route to={LIST_CATEGORY}>
+        <Route path={LIST_CATEGORY}>
           <ListCategory />
+        </Route>
+        <Route path={CREATE_CATEGORY}>
+          {console.log("lolo")}
+          <CategorySubmitForm />
         </Route>
       </Switch>
     </BrowserRouter>
