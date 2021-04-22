@@ -18,8 +18,8 @@ const ListCategory = () => {
   const handleDelete = (itemId) => {
     let result = window.confirm("Delete this category?");
     if (result) {
-      console.log(itemId+"xoadcne");
-      CategoryService.delete(itemId).then(() => {
+      CategoryService.delete(itemId)
+      .then(() => {
         setCategories(Categories.filter((item)=>item.id!==itemId));
       });
     }
