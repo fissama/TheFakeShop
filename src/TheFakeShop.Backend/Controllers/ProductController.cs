@@ -145,6 +145,7 @@ namespace TheFakeShop.Backend.Controllers
                 Price = product.Price,
                 InStock = product.InStock,
                 Description = product.Description,
+                CategoryId = product.CategoryId,
                 ProductImages = product.ProductImages.Select(x => x.ImageLink).ToList(),
                 ratingViewModels = temp
             };
