@@ -1,13 +1,14 @@
 import React from "react";
 import ListCategory from "./components/Category/ListCategory";
-import { Route, BrowserRouter, Switch } from "react-router-dom";
+import { Route, Router, Switch } from "react-router-dom";
 import { LIST_CATEGORY, MODIFIED_CATEGORY, CREATE_CATEGORY } from "./constants/page";
 import "bootstrap/dist/css/bootstrap.min.css";
 import CategorySubmitForm from "./components/Category/CategorySubmitForm";
+import history from './helpers/history';
 
 function App() {
   return (
-    <BrowserRouter>
+    <Router history={history}>
       <Switch>
         <Route path={LIST_CATEGORY}>
           <ListCategory />
@@ -19,7 +20,7 @@ function App() {
           <CategorySubmitForm />
         </Route>
       </Switch>
-    </BrowserRouter>
+    </Router>
   );
 }
 
