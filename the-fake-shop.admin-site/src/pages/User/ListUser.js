@@ -13,7 +13,7 @@ const ListUser = () => {
       setUsers(data);
     });
   };
-  console.log(Users);
+  console.log(Users);   
   return (
     <div>
       <Table>
@@ -35,7 +35,7 @@ const ListUser = () => {
                   <Button //onClick={() => onEdit && onEdit(item)}
                     color="link"
                   >
-                    Edit
+                    Enable
                   </Button>
 
                   <Button
@@ -43,7 +43,7 @@ const ListUser = () => {
                     color="link"
                     className="text-danger"
                   >
-                    Remove
+                    Block
                   </Button>
                 </td>
               </tr>
