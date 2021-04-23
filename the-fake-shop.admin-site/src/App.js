@@ -1,9 +1,10 @@
 import React from "react";
-import ListCategory from "./components/Category/ListCategory";
+import ListCategory from "./pages/Category/ListCategory";
+import ListUser from './pages/User/ListUser';
 import { Route, Router, Switch } from "react-router-dom";
-import { LIST_CATEGORY, MODIFIED_CATEGORY, CREATE_CATEGORY } from "./constants/page";
+import { LIST_CATEGORY, MODIFIED_CATEGORY, CREATE_CATEGORY, LIST_USER } from "./constants/page";
 import "bootstrap/dist/css/bootstrap.min.css";
-import CategorySubmitForm from "./components/Category/CategorySubmitForm";
+import CategorySubmitForm from "./pages/Category/CategorySubmitForm";
 import history from './helpers/history';
 
 function App() {
@@ -18,6 +19,9 @@ function App() {
         </Route>
         <Route path={CREATE_CATEGORY}>
           <CategorySubmitForm />
+        </Route>
+        <Route path={LIST_USER}>
+          <ListUser />
         </Route>
       </Switch>
     </Router>
