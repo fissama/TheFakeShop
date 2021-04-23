@@ -15,6 +15,8 @@ namespace TheFakeShop.ShareModels
 
         public string Description { get; set; }
 
+        public int? CategoryId { get; set; }
+
         public IList<string> ProductImages  { get; set; }
 
         public IList<RatingViewModel> ratingViewModels { get; set; }
