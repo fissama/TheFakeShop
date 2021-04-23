@@ -1,12 +1,21 @@
 import React from "react";
 import ListCategory from "./pages/Category/ListCategory";
-import ListUser from './pages/User/ListUser';
-import ListProduct from './pages/Product/ListProduct';
+import ListUser from "./pages/User/ListUser";
+import ListProduct from "./pages/Product/ListProduct";
 import { Route, Router, Switch } from "react-router-dom";
-import { LIST_CATEGORY, MODIFIED_CATEGORY, CREATE_CATEGORY, LIST_USER, LIST_PRODUCT } from "./constants/page";
+import {
+  LIST_CATEGORY,
+  MODIFIED_CATEGORY,
+  CREATE_CATEGORY,
+  LIST_USER,
+  LIST_PRODUCT,
+  MODIFIED_PRODUCT,
+  CREATE_PRODUCT,
+} from "./constants/page";
 import "bootstrap/dist/css/bootstrap.min.css";
 import CategorySubmitForm from "./pages/Category/CategorySubmitForm";
-import history from './helpers/history';
+import ProductSubmitForm from "./pages/Product/ProductSubmitForm";
+import history from "./helpers/history";
 
 function App() {
   return (
@@ -26,6 +35,12 @@ function App() {
         </Route>
         <Route path={LIST_PRODUCT}>
           <ListProduct />
+        </Route>
+        <Route path={MODIFIED_PRODUCT}>
+          <ProductSubmitForm />
+        </Route>
+        <Route path={CREATE_PRODUCT}>
+          <ProductSubmitForm />
         </Route>
       </Switch>
     </Router>
