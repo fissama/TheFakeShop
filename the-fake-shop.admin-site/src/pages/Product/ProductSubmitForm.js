@@ -8,46 +8,57 @@ const CategorySubmitForm = ({ match }) => {
   const [productId, setProductId] = useState(match.params.id);
   const [Product, setProduct] = useState({});
   const [image, setImage] = useState("");
+  const [isCreate,setIsCreate] = useState(match.params.id===undefined?true:false);
   const [loading, setLoading] = useState(false);
   useEffect(() => {
-    async function fetchdate() {
+    async function fetchdata() {
       setProductId(match.params.id);
       console.log(productId);
       if (productId !== undefined) {
         await fetchProduct(productId);
       }
+
+      console.log("is creazzzz",isCreate);
     }
-    fetchdate();
+    fetchdata();
   }, [match.params.id]);
 
   const formik = useFormik({
+    enableReinitialize:true,
     initialValues: {
       name: Product.productName,
       price: Product.price,
       description: Product.description,
       instock: Product.inStock,
       categoryId: Product.categoryId,
-      images: Product.productImages===undefined?[]:[...Product.productImages]
-    },
+      images: Product.productImages===undefined?[]:[...Product.productImages],
+      
+    }
+    ,
     onSubmit: async (values) => {
       let result = window.confirm("Are you sure?");
+      //values.images.push(image);
       console.log("values ne");
       console.log(values);
+      if(!isCreate){
+          values.images = [];
+          values.images.push(image);
+          console.log("values edit", values);
+      }
       if (result) {
-        let isCreate = productId === undefined ? true : false;
-        console.log(isCreate);
         if (isCreate) {
-            console.log("function ne");
-            console.log(changeFormikValuestoFormData(values));
           await ProductService.create(changeFormikValuestoFormData(values));
           history.goBack();
         } else {
+          //values.images = [...image];
+          console.log("values edit", values);
           await ProductService.edit(productId, values);
           history.goBack();
         }
       }
     },
   });
+  console.log("run zzzz",formik.initialValues);
   const fetchProduct = async (itemId) => {
     console.log(ProductService.get(itemId));
     setProduct(await (await ProductService.get(itemId)).data);
@@ -83,8 +94,15 @@ const CategorySubmitForm = ({ match }) => {
     setImage(file.secure_url);
     setLoading(false);
     //formik.values.images.push(file.secure_url);
-    formik.values.images.push(file.secure_url);
-
+    console.log("is create",isCreate);
+    console.log("image",image);
+    if(isCreate){
+    formik.values.images = [...formik.values.images,file.secure_url];
+    }
+    else {
+      formik.values.images = [];
+      formik.values.images=[...formik.values.images,image];
+    }
   };
   return (
     <form onSubmit={formik.handleSubmit}>
@@ -95,7 +113,7 @@ const CategorySubmitForm = ({ match }) => {
           name="name"
           className="form-control"
           type="textarea"
-          onChange={formik.handleChange}
+          {...formik.getFieldProps('name')}
           value={formik.values.name}
         />
       </div>
@@ -106,7 +124,7 @@ const CategorySubmitForm = ({ match }) => {
             id="price"
             name="price"
             type="number"
-            onChange={formik.handleChange}
+            {...formik.getFieldProps('price')}
             value={formik.values.price}
           />
         </div>
@@ -116,7 +134,7 @@ const CategorySubmitForm = ({ match }) => {
             id="instock"
             name="instock"
             type="number"
-            onChange={formik.handleChange}
+            {...formik.getFieldProps('instock')}
             value={formik.values.instock}
           />
         </div>
@@ -126,7 +144,7 @@ const CategorySubmitForm = ({ match }) => {
             id="categoryId"
             name="categoryId"
             type="number"
-            onChange={formik.handleChange}
+            {...formik.getFieldProps('categoryId')}
             value={formik.values.categoryId}
           />
         </div>
@@ -138,15 +156,16 @@ const CategorySubmitForm = ({ match }) => {
           name="description"
           type="textarea"
           className="form-control"
-          onChange={formik.handleChange}
+          {...formik.getFieldProps('description')}
           value={formik.values.description}
         />
       </div>
       <div className="form-group">
-        <label htmlFor="image">Upload Image</label>
+        <label htmlFor="images">Upload Image</label>
         <input
           type="file"
-          name="file"
+          id="images"
+          name="images"
           placeholder="Upload an image"
           onChange={uploadImage}
           style={{ display: "block" }}
