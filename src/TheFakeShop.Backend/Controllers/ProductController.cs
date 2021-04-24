@@ -194,7 +194,23 @@ namespace TheFakeShop.Backend.Controllers
             {
                 return NotFound();
             }
-
+            foreach (var el in _context.ProductImages.Where(x => x.ProductId == product.ProductId))
+            {
+                _context.ProductImages.Remove(el);
+            }
+            await _context.SaveChangesAsync();
+            foreach (var el in prodRequest.Images)
+            {
+                if (el != "")
+                {
+                    _context.ProductImages.Add(new ProductImage
+                    {
+                        ProductId = product.ProductId,
+                        ImageLink = el
+                    });
+                }
+            }
+            await _context.SaveChangesAsync();
             product.ProductName = prodRequest.Name;
             product.Price = prodRequest.Price;
             product.Description = prodRequest.Description;
