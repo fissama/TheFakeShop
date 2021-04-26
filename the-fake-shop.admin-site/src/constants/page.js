@@ -3,6 +3,7 @@ export const MODIFIED_PRODUCT = '/modifiedProduct/:id';
 export const CREATE_PRODUCT = '/modifiedProduct/';
 
 export const HOME_PAGE = '/';
+export const DASHBOARD_PAGE = '/dashboard';
 export const LIST_USER = '/user';
 
 export const LIST_CATEGORY = '/category';

@@ -6,6 +6,7 @@ import $ from "jquery";
 import "./App.css";
 import Home from "./pages/home";
 
+
 function App() {
   React.useEffect(() => {
     $("#menu-toggle").click(function (e) {
@@ -16,7 +17,7 @@ function App() {
 
   return (
     <div>
-        <Home />
+      <Home />
     </div>
   );
 }
