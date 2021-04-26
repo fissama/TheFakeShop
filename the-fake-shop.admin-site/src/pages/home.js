@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Router, Switch, Route, Link } from "react-router-dom";
 import {
   LIST_CATEGORY,
@@ -8,7 +8,7 @@ import {
   LIST_PRODUCT,
   MODIFIED_PRODUCT,
   CREATE_PRODUCT,
-  HOME_PAGE,
+  DASHBOARD_PAGE,
 } from "../constants/page";
 import ListCategory from "./Category/ListCategory";
 import ListUser from "./User/ListUser";
@@ -16,8 +16,14 @@ import ListProduct from "./Product/ListProduct";
 import CategorySubmitForm from "./Category/CategorySubmitForm";
 import ProductSubmitForm from "./Product/ProductSubmitForm";
 import history from "../helpers/history";
+import LoginButton from "../components/LoginButton";
+import LogoutButton from "../components/LogoutButton";
+import Profile from "../components/Profile";
+import { useAuth0 } from "@auth0/auth0-react";
 
-const sidebar = () => {
+const Home = () => {
+  const { user, isAuthenticated, isLoading } = useAuth0();
+  console.log("login",user);
   return (
     <Router history={history}>
       <div>
@@ -26,7 +32,8 @@ const sidebar = () => {
             <div className="sidebar-heading">TheFakeAdmin </div>
             <div className="list-group list-group-flush">
               <Link
-                to={HOME_PAGE}
+                exact
+                to={DASHBOARD_PAGE}
                 className="list-group-item list-group-item-action bg-light"
               >
                 Dashboard
@@ -50,7 +57,8 @@ const sidebar = () => {
                 Products
               </Link>
               <Link
-                to={HOME_PAGE}
+                exact
+                to={DASHBOARD_PAGE}
                 className="list-group-item list-group-item-action bg-light"
               >
                 Settings
@@ -79,18 +87,22 @@ const sidebar = () => {
               >
                 <ul className="navbar-nav ml-auto mt-2 mt-lg-0">
                   <li className="nav-item">
-                    <Link to={HOME_PAGE}>
-                      Welcome, admin!
-                    </Link>
+                    {isAuthenticated&&<a>Welcome, {user.nickname}!</a>}
+                  </li>
+                  <li className="nav-item">
+                    <LoginButton />
+                  </li>
+                  <li className="nav-item">
+                    <LogoutButton />
                   </li>
                 </ul>
               </div>
             </nav>
             <div>
-              {" "}
               <Switch>
-                <Route exact path={HOME_PAGE}>
+                <Route path={DASHBOARD_PAGE}>
                   <h2>Welcome back, my admin!</h2>
+                  <Profile /> 
                 </Route>
                 <Route path={LIST_CATEGORY}>
                   <ListCategory />
@@ -122,4 +134,4 @@ const sidebar = () => {
   );
 };
 
-export default sidebar;
+export default Home;
