@@ -16,6 +16,8 @@ import ListProduct from "./Product/ListProduct";
 import CategorySubmitForm from "./Category/CategorySubmitForm";
 import ProductSubmitForm from "./Product/ProductSubmitForm";
 import history from "../helpers/history";
+import { IDENTITY_SERVER_URL } from "../constants/connection";
+import LoginButton from "../components/LoginButton";
 
 const sidebar = () => {
   return (
@@ -79,9 +81,8 @@ const sidebar = () => {
               >
                 <ul className="navbar-nav ml-auto mt-2 mt-lg-0">
                   <li className="nav-item">
-                    <Link to={HOME_PAGE}>
-                      Welcome, admin!
-                    </Link>
+                    <Link to={HOME_PAGE}>Welcome, admin!</Link>
+                    <LoginButton></LoginButton>
                   </li>
                 </ul>
               </div>
