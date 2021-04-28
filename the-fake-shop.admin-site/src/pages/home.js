@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { Router, Switch, Route, Link } from "react-router-dom";
 import {
   LIST_CATEGORY,
@@ -18,12 +18,10 @@ import ProductSubmitForm from "./Product/ProductSubmitForm";
 import history from "../helpers/history";
 import LoginButton from "../components/LoginButton";
 import LogoutButton from "../components/LogoutButton";
-import Profile from "../components/Profile";
 import { useAuth0 } from "@auth0/auth0-react";
 
 const Home = () => {
-  const { user, isAuthenticated, isLoading } = useAuth0();
-  console.log("login",user);
+  const { user, isAuthenticated } = useAuth0();
   return (
     <Router history={history}>
       <div>
@@ -99,10 +97,10 @@ const Home = () => {
               </div>
             </nav>
             <div>
+              {isAuthenticated===true?
               <Switch>
                 <Route path={DASHBOARD_PAGE}>
                   <h2>Welcome back, my admin!</h2>
-                  <Profile /> 
                 </Route>
                 <Route path={LIST_CATEGORY}>
                   <ListCategory />
@@ -126,6 +124,7 @@ const Home = () => {
                   <ProductSubmitForm />
                 </Route>
               </Switch>
+              :<Switch></Switch>}
             </div>
           </div>
         </div>
