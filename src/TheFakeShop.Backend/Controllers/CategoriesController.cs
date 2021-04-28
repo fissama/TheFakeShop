@@ -15,14 +15,6 @@ namespace TheFakeShop.Backend.Controllers
     [Route("[controller]")]
     public class CategoriesController : ControllerBase
     {
-        /*private readonly TheFakeShopContext _context;
-
-        public CategoriesController(TheFakeShopContext context)
-        {
-            _context = context;
-        }
-        
-*/
         private readonly ICategoryService _categoryService;
 
         public CategoriesController(ICategoryService categoryService)
@@ -34,9 +26,6 @@ namespace TheFakeShop.Backend.Controllers
         [AllowAnonymous]
         public async Task<ActionResult<IEnumerable<CategoryViewModel>>> GetCategories()
         {
-            /*return await _context.Categories
-                .Select(x => new CategoryViewModel { Id = x.CategoryId, CategoryName = x.CategoryName, parentId = x.ParentId })
-                .ToListAsync();*/
             var listCategory = await _categoryService.ReadAllCategory();
             var listCategoryVM = listCategory.Select(x => new CategoryViewModel { Id = x.CategoryId, CategoryName = x.CategoryName, parentId = x.ParentId });
             return listCategoryVM.ToList();
@@ -46,21 +35,6 @@ namespace TheFakeShop.Backend.Controllers
         [AllowAnonymous]
         public async Task<ActionResult<CategoryViewModel>> GetCategory(int id)
         {
-            /*var category = await _context.Categories.FindAsync(id);
-
-            if (category == null)
-            {
-                return NotFound();
-            }
-
-            var cateVM = new CategoryViewModel
-            {
-                Id = category.CategoryId,
-                CategoryName = category.CategoryName,
-                parentId = category.ParentId
-            };
-
-            return cateVM;*/
             var getCategory = await _categoryService.ReadCategoryById(id);
             if (getCategory == null)
             {
