@@ -19,7 +19,7 @@ namespace TheFakeShop.Backend.Test.TestViewComponent
     public class CategoryViewComponentTest : IClassFixture<SqliteInMemoryFixture>
     {
         [Fact]
-        public async Task PostCategory_Success()
+        public async Task getCategoryViewComponent_Success()
         {
             //Arrange View Component
             var httpContext = new DefaultHttpContext();
