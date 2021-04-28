@@ -73,6 +73,10 @@ namespace TheFakeShop.Backend.Repositories
         public async Task<bool> FindById(int id)
         {
             var findCategory = await _context.Categories.FindAsync(id);
+            if(findCategory==null)
+            {
+                return false;
+            }
             var isCategoryFound = (findCategory.CategoryId == id);
             return isCategoryFound;
         }
