@@ -3,23 +3,19 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.Mvc.ViewComponents;
 using Moq;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
-using TheFakeShop.Backend.Controllers;
 using TheFakeShop.Frontend.Services;
 using TheFakeShop.Frontend.ViewComponents;
 using TheFakeShop.ShareModels;
 using Xunit;
 
-namespace TheFakeShop.Backend.Test.TestViewComponent
+namespace TheFakeShop.Test.FrontendTest.TestViewComponents
 {
-    public class CategoryViewComponentTest : IClassFixture<SqliteInMemoryFixture>
+    public class CategoryViewComponentTest
     {
         [Fact]
-        public async Task PostCategory_Success()
+        public async Task getCategoryViewComponent_Success()
         {
             //Arrange View Component
             var httpContext = new DefaultHttpContext();
@@ -35,7 +31,7 @@ namespace TheFakeShop.Backend.Test.TestViewComponent
 
             //Act - Check final result is viewcomponent
             var result = viewComponent.InvokeAsync();
-            var createdAtActionResult = Assert.IsType<Task<IViewComponentResult>>(result);
+            var createdAtActionResult = await Assert.IsType<Task<IViewComponentResult>>(result);
         }
 
         private Task<IList<CategoryViewModel>> getCategoriesValue()

@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using TheFakeShop.Backend.Models;
 
-namespace TheFakeShop.Backend.Test
+namespace TheFakeShop.Test
 {
     public class SqliteInMemoryFixture : IDisposable
     {

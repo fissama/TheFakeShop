@@ -11,7 +11,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TheFakeShop.IdentityServer"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TheFakeShop.ShareModels", "TheFakeShop.ShareModels\TheFakeShop.ShareModels.csproj", "{3846E301-9670-4293-804C-F83FE2707505}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TheFakeShop.Backend.Test", "TheFakeShop.Backend.Test\TheFakeShop.Backend.Test.csproj", "{A0DFB149-5965-49AC-BCC8-2DB9585F8B24}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TheFakeShop.Test", "TheFakeShop.Test\TheFakeShop.Test.csproj", "{3AA453A5-B15D-4ED3-9C4C-7201F465B012}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -35,10 +35,10 @@ Global
 		{3846E301-9670-4293-804C-F83FE2707505}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3846E301-9670-4293-804C-F83FE2707505}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3846E301-9670-4293-804C-F83FE2707505}.Release|Any CPU.Build.0 = Release|Any CPU
-		{A0DFB149-5965-49AC-BCC8-2DB9585F8B24}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{A0DFB149-5965-49AC-BCC8-2DB9585F8B24}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{A0DFB149-5965-49AC-BCC8-2DB9585F8B24}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{A0DFB149-5965-49AC-BCC8-2DB9585F8B24}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3AA453A5-B15D-4ED3-9C4C-7201F465B012}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3AA453A5-B15D-4ED3-9C4C-7201F465B012}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3AA453A5-B15D-4ED3-9C4C-7201F465B012}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3AA453A5-B15D-4ED3-9C4C-7201F465B012}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
