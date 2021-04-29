@@ -13,6 +13,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using TheFakeShop.Backend.Models;
+using TheFakeShop.Backend.Repositories;
+using TheFakeShop.Backend.Services;
 
 namespace TheFakeShop
 {
@@ -39,6 +41,13 @@ namespace TheFakeShop
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "TheFakeShop", Version = "v1" });
             });
+
+            services.AddTransient<ICategoryService, CategoryService>();
+            services.AddTransient<ICategoryRepository, CategoryRepository>();
+            services.AddTransient<IProductService, ProductService>();
+            services.AddTransient<IProductRepository, ProductRepository>();
+            services.AddTransient<IRatingService, RatingService>();
+            services.AddTransient<IRatingRepository, RatingRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
