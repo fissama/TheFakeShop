@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using TheFakeShop.Backend.Models;
+using TheFakeShop.Backend.Services;
 using TheFakeShop.ShareModels;
 
 namespace TheFakeShop.Backend.Controllers
@@ -14,28 +15,28 @@ namespace TheFakeShop.Backend.Controllers
     [Route("[controller]")]
     public class ProductController : Controller
     {
-        private readonly TheFakeShopContext _context;
+        private readonly IProductService _productService;
 
-        public ProductController(TheFakeShopContext context)
+        public ProductController(IProductService productService)
         {
-            _context = context;
+            _productService = productService;
         }
 
         [HttpGet]
         [AllowAnonymous]
         public async Task<ActionResult<IEnumerable<ProductViewModel>>> GetProducts()
         {
-            var products = await _context.Products.Include("ProductImages").Select(x =>
-                new
-                {
-                    x.ProductId,
-                    x.ProductName,
-                    x.Price,
-                    x.Description,
-                    x.ProductImages
-                }).ToListAsync();
+            /* var products = await _context.Products.Include("ProductImages").Select(x =>
+                 new
+                 {
+                     x.ProductId,
+                     x.ProductName,
+                     x.Price,
+                     x.Description,
+                     x.ProductImages
+                 }).ToListAsync();*/
 
-
+            var products = await _productService.ReadAllProduct();
 
             var prodVMs = products.Select(x =>
                 new ProductViewModel
@@ -54,52 +55,12 @@ namespace TheFakeShop.Backend.Controllers
         [AllowAnonymous]
         public async Task<ActionResult<IEnumerable<ProductViewModel>>> GetProductsByCategoryId(int id)
         {
-            var category = await _context.Categories.FindAsync(id);
-            if(category == null)
+            var products = await _productService.ReadProductByCategoryId(id);
+            if(products==null)
             {
                 return NotFound();
             }
-
-            //var products = await _context.Products.Include("ProductImages").ToListAsync();
-            if (category.ParentId == null)
-            {
-                var childCategories = await _context.Categories.Where(x => x.ParentId == id).Select(x => x.CategoryId).ToListAsync();
-
-                var products = await _context.Products.Include("ProductImages").Where(x => childCategories.Contains((int)x.CategoryId))
-                .Select(x =>
-                new
-                {
-                    x.ProductId,
-                    x.ProductName,
-                    x.Price,
-                    x.Description,
-                    x.ProductImages
-                }).ToListAsync();
-
-                var prodVMs = products.Select(x =>
-                new ProductViewModel
-                {
-                    ProductId = x.ProductId,
-                    ProductName = x.ProductName,
-                    Price = x.Price,
-                    Description = x.Description,
-                    ProductImages = x.ProductImages.Select(x => x.ImageLink).ToList()
-                }).ToList();
-                return prodVMs;
-            }
-            else
-            {
-                var products = await _context.Products.Include("ProductImages").Where(x => x.CategoryId == id)
-                .Select(x =>
-                new
-                {
-                    x.ProductId,
-                    x.ProductName,
-                    x.Price,
-                    x.Description,
-                    x.ProductImages
-                }).ToListAsync();
-                var prodVMs = products.Select(x =>
+            var prodVMs = products.Select(x =>
                 new ProductViewModel
                 {
                     ProductId = x.ProductId,
@@ -109,22 +70,19 @@ namespace TheFakeShop.Backend.Controllers
                     ProductImages = x.ProductImages.Select(x => x.ImageLink).ToList()
                 }).ToList();
 
-                return prodVMs;
-            }
+            return prodVMs;
         }
 
         [HttpGet("{id}")]
         [AllowAnonymous]
         public async Task<ActionResult<ProductViewModel>> GetProduct(int id)
         {
-            var product = await _context.Products.FindAsync(id);
-
-            if (product == null)
+            var getProduct = await _productService.ReadProductById(id);
+            if (getProduct == null)
             {
                 return NotFound();
             }
-            product = await _context.Products.Include("ProductImages").Include("ProductRatings").Where(x => x.ProductId == id).FirstAsync();
-            var ratings = product.ProductRatings.ToList();
+            var ratings = getProduct.ProductRatings.ToList();
             IList<RatingViewModel> temp = new List<RatingViewModel>();
             foreach(var el in ratings)
             {
@@ -140,13 +98,13 @@ namespace TheFakeShop.Backend.Controllers
             }
             var prodVM = new ProductViewModel
             {
-                ProductId = product.ProductId,
-                ProductName = product.ProductName,
-                Price = product.Price,
-                InStock = product.InStock,
-                Description = product.Description,
-                CategoryId = product.CategoryId,
-                ProductImages = product.ProductImages.Select(x => x.ImageLink).ToList(),
+                ProductId = getProduct.ProductId,
+                ProductName = getProduct.ProductName,
+                Price = getProduct.Price,
+                InStock = getProduct.InStock,
+                Description = getProduct.Description,
+                CategoryId = getProduct.CategoryId,
+                ProductImages = getProduct.ProductImages.Select(x => x.ImageLink).ToList(),
                 ratingViewModels = temp
             };
             return prodVM;
@@ -155,96 +113,79 @@ namespace TheFakeShop.Backend.Controllers
         [HttpPost]
         public async Task<IActionResult> PostProduct([FromForm] ProductCreateRequest productCreateRequest)
         {
-            var category = await _context.Categories.FindAsync(productCreateRequest.CategoryId);
-
-            if (category == null)
-            {
-                return NotFound();
-            }
-            var product = new Product
+            var postProduct = new Product
             {
                 ProductName = productCreateRequest.Name,
                 Description = productCreateRequest.Description,
                 Price = productCreateRequest.Price,
                 InStock = productCreateRequest.Instock,
-                CategoryId = category.CategoryId
+                CategoryId = productCreateRequest.CategoryId
             };
-            _context.Products.Add(product);
-            await _context.SaveChangesAsync();
-            product = _context.Products.OrderByDescending(s=>s.ProductId).FirstOrDefault();
             foreach(var el in productCreateRequest.Images)
             {
-                _context.ProductImages.Add(new ProductImage
+                postProduct.ProductImages.Add(new ProductImage
                 {
-                    ProductId = product.ProductId,
-                    ImageLink = el
+                    ImageLink = el,
+                    Product = postProduct
                 });
-            }    
-            await _context.SaveChangesAsync();
+            }
+            var isPostSuccessProduct = await _productService.CreateProduct(postProduct);
 
-            return CreatedAtAction(nameof(GetProduct), new { id = product.ProductId }, null);
-        }
 
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutProduct(int id, ProductCreateRequest prodRequest)
-        {
-            var product = await _context.Products.FindAsync(id);
-
-            if (product == null)
+            if (isPostSuccessProduct)
+            {
+                return NoContent();
+            }
+            else
             {
                 return NotFound();
             }
-            foreach (var el in _context.ProductImages.Where(x => x.ProductId == product.ProductId))
-            {
-                _context.ProductImages.Remove(el);
-            }
-            await _context.SaveChangesAsync();
-            foreach (var el in prodRequest.Images)
-            {
-                if (el != "")
-                {
-                    _context.ProductImages.Add(new ProductImage
-                    {
-                        ProductId = product.ProductId,
-                        ImageLink = el
-                    });
-                }
-            }
-            await _context.SaveChangesAsync();
-            product.ProductName = prodRequest.Name;
-            product.Price = prodRequest.Price;
-            product.Description = prodRequest.Description;
-            product.InStock = prodRequest.Instock;
-            await _context.SaveChangesAsync();
+        }
 
-            return NoContent();
+        [HttpPut("{id}")]
+        public async Task<IActionResult> PutProduct(int id, ProductCreateRequest productCreateRequest)
+        {
+            var putProduct = new Product
+            {
+                ProductName = productCreateRequest.Name,
+                Description = productCreateRequest.Description,
+                Price = productCreateRequest.Price,
+                InStock = productCreateRequest.Instock,
+                CategoryId = productCreateRequest.CategoryId
+            };
+            foreach (var el in productCreateRequest.Images)
+            {
+                putProduct.ProductImages.Add(new ProductImage
+                {
+                    ImageLink = el,
+                    ProductId = id
+                });
+            }
+            var isPutSuccessCategory = await _productService.UpdateProduct(id, putProduct);
+
+            if (isPutSuccessCategory)
+            {
+                return NoContent();
+            }
+            else
+            {
+                return NotFound();
+            }
         }
 
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteProduct(int id)
         {
-            var product = await _context.Products.FindAsync(id);
-            if (product == null)
+            var isDeleteSuccessProduct = await _productService.DeleteProduct(id);
+
+            if (isDeleteSuccessProduct)
+            {
+                return NoContent();
+            }
+            else
             {
                 return NotFound();
             }
-
-            foreach(var el in _context.ProductRatings.Where(x=>x.ProductId==product.ProductId))
-            {
-                _context.ProductRatings.Remove(el);
-            }
-            await _context.SaveChangesAsync();
-
-            foreach (var el in _context.ProductImages.Where(x => x.ProductId == product.ProductId))
-            {
-                _context.ProductImages.Remove(el);
-            }
-            await _context.SaveChangesAsync();
-
-            _context.Products.Remove(product);
-            await _context.SaveChangesAsync();
-
-            return NoContent();
         }
     }
 }
