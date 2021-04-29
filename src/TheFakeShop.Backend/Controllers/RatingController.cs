@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using TheFakeShop.Backend.Models;
+using TheFakeShop.Backend.Services;
 using TheFakeShop.ShareModels;
 
 namespace TheFakeShop.Backend.Controllers
@@ -14,48 +15,17 @@ namespace TheFakeShop.Backend.Controllers
     [Route("[controller]")]
     public class RatingController : ControllerBase
     {
-        private readonly TheFakeShopContext _context;
+        private readonly IRatingService _ratingService;
 
-        public RatingController(TheFakeShopContext context)
+        public RatingController(IRatingService ratingService)
         {
-            _context = context;
-        }
-
-
-        [HttpGet("{id}")]
-        [AllowAnonymous]
-        public async Task<ActionResult<IEnumerable<RatingViewModel>>> GetRatingByProductID(int id)
-        {
-            return await _context.ProductRatings
-                .Where(x => x.ProductId == id)
-                .Select(x => new RatingViewModel { PratingId = x.PratingId, CustomerName = x.CustomerName, CustomerEmail = x.CustomerEmail, Content = x.Content, Rating = x.Rating, Title = x.Title, ProductID = x.ProductId })
-                .ToListAsync();
-        }
-
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutCategory(int id, RatingCreateRequest rateRequest)
-        {
-            var rating = await _context.ProductRatings.FindAsync(id);
-
-            if (rating == null)
-            {
-                return NotFound();
-            }
-
-            rating.Rating = rateRequest.Rating;
-            rating.Title = rateRequest.Title;
-            rating.CustomerEmail = rateRequest.CustomerEmail;
-            rating.CustomerName = rateRequest.CustomerName;
-            rating.Content = rateRequest.Content;
-            await _context.SaveChangesAsync();
-
-            return NoContent();
+            _ratingService = ratingService;
         }
 
         [HttpPost]
         public async Task<IActionResult> PostRating(RatingCreateRequest rateRequest)
         {
-            var rating = new ProductRating
+            var postRating = new ProductRating
             {
                 ProductId = rateRequest.ProductID,
                 CustomerName = rateRequest.CustomerName,
@@ -65,25 +35,18 @@ namespace TheFakeShop.Backend.Controllers
                 Rating = rateRequest.Rating
             };
 
-            _context.ProductRatings.Add(rating);
-            await _context.SaveChangesAsync();
+            var isPostSuccessRating = await _ratingService.CreateRating(postRating);
 
-            return StatusCode(201);
-        }
 
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteCategory(int id)
-        {
-            var rating = await _context.ProductRatings.FindAsync(id);
-            if (rating == null)
+            if (isPostSuccessRating)
+            {
+                return NoContent();
+            }
+            else
             {
                 return NotFound();
             }
-
-            _context.ProductRatings.Remove(rating);
-            await _context.SaveChangesAsync();
-
-            return NoContent();
         }
+
     }
 }
