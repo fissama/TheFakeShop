@@ -213,7 +213,7 @@ namespace TheFakeShop.Backend.Controllers
                 postProduct.ProductImages.Add(new ProductImage
                 {
                     ImageLink = el,
-                    ProductId = 0
+                    Product = postProduct
                 });
             }
             var isPostSuccessProduct = await _productService.CreateProduct(postProduct);

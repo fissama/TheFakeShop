@@ -32,14 +32,6 @@ namespace TheFakeShop.Backend.Repositories
             _context.Add(product);
             if (await _context.SaveChangesAsync() > 0)
             {
-                product = await _context.Products.OrderByDescending(s => s.ProductId).FirstOrDefaultAsync();
-
-                foreach (var el in product.ProductImages)
-                {
-                    el.ProductId = product.ProductId;
-                    _context.ProductImages.Add(el);
-                }
-                await _context.SaveChangesAsync();
                 return true;
             }
             else
@@ -51,7 +43,7 @@ namespace TheFakeShop.Backend.Repositories
         public async Task<bool> UpdateProduct(int id,Product product)
         {
             var productOld = await _context.Products.FindAsync(id);
-            foreach (var el in _context.ProductImages.Where(x => x.ProductId == product.ProductId))
+            foreach (var el in _context.ProductImages.Where(x => x.ProductId == productOld.ProductId))
             {
                 _context.ProductImages.Remove(el);
             }
