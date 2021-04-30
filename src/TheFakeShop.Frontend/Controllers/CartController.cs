@@ -30,6 +30,7 @@ namespace TheFakeShop.Frontend.Controllers
 
             cart.Remove(deleteMe);
             HttpContext.Session.Set("UserCart", cart);
+            Task.WaitAll(Task.Delay(2000));
             return RedirectToAction("Index","Cart");
         }
     }

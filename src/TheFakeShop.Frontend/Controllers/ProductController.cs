@@ -57,9 +57,10 @@ namespace TheFakeShop.Frontend.Controllers
 
             if (!result)
             {
+                Task.WaitAll(Task.Delay(2000));
                 return NoContent();
             }
-
+            Task.WaitAll(Task.Delay(2000));
             return RedirectToAction("Details","Product",new { id=ProductID}); //????
         }
 
@@ -77,6 +78,7 @@ namespace TheFakeShop.Frontend.Controllers
                 {
                     item.Qty += qty;
                     HttpContext.Session.Set<List<CartItemViewModel>>("UserCart",cart);
+                    Task.WaitAll(Task.Delay(2000));
                     return RedirectToAction("Details", "Product", new { id = id });
                 }
             }
@@ -94,6 +96,7 @@ namespace TheFakeShop.Frontend.Controllers
             cart.Add(productItem);
             HttpContext.Session.Set<List<CartItemViewModel>>("UserCart", cart);
 
+            Task.WaitAll(Task.Delay(2000));
             return RedirectToAction("Details", "Product", new { id = id });
         }
 
