@@ -11,8 +11,8 @@
 }
 
 .body-area {
-    padding-top:10px;
-    background: #ffe680;
+    padding-top: 10px;
+    background: #bfbfbf;
     /*#fff5cc*/
 }
 
@@ -106,7 +106,7 @@
 .tab-content-custom {
     padding-left: 20px;
     padding-right: 20px;
-    background: wheat;
+    background: #f2f2f2;
 }
 
 .checked {

@@ -68,6 +68,15 @@ namespace TheFakeShop.Frontend
             services.AddTransient<ICategoryApiClient,CategoryApiClient>();
             services.AddTransient<IProductApiClient, ProductApiClient>();
 
+            services.AddDistributedMemoryCache();
+
+            services.AddSession(options =>
+            {
+                options.IdleTimeout = TimeSpan.FromMinutes(30);
+                options.Cookie.HttpOnly = true;
+                options.Cookie.IsEssential = true;
+            });
+
             services.AddControllersWithViews();
         }
 
@@ -91,6 +100,8 @@ namespace TheFakeShop.Frontend
 
             app.UseAuthentication();
             app.UseAuthorization();
+
+            app.UseSession();
 
             app.UseEndpoints(endpoints =>
             {
