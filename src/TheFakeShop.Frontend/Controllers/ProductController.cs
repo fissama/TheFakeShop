@@ -38,7 +38,10 @@ namespace TheFakeShop.Frontend.Controllers
         }
 
         [HttpPost("[controller]/{id}")]
-        public async Task<IActionResult> Rating(string CustomerName, string CustomerEmail, byte Rating, string Title, string Content, int ProductID)
+        public Task<IActionResult> GetMenuItems(string isRating,string CustomerName, string CustomerEmail, byte Rating, string Title, string Content, int ProductID,int qty) =>
+        isRating == "true" ? addRating(CustomerName, CustomerEmail, Rating, Title, Content, ProductID) : addProductToCart(ProductID, qty);
+
+        private async Task<IActionResult> addRating(string CustomerName, string CustomerEmail, byte Rating, string Title, string Content, int ProductID)
         {
             RatingCreateRequest ratingCreate = new()
             {
@@ -60,7 +63,7 @@ namespace TheFakeShop.Frontend.Controllers
             return RedirectToAction("Details","Product",new { id=ProductID}); //????
         }
 
-        public async Task<IActionResult> addProductToCart(int id, int qty)
+        private async Task<IActionResult> addProductToCart(int id, int qty)
         {
             List<CartItemViewModel> cart = HttpContext.Session.Get<List<CartItemViewModel>>("UserCart");
             if(cart==null)
