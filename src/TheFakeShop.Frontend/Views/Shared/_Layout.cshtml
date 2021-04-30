@@ -31,7 +31,7 @@
                         <div class="shop-menu pull-right">
                             <ul class="nav navbar-nav  menu">
                                 <li><a href="#"><i class="fas fa-search"></i> Search</a></li>
-                                <li><a href="#"><i class="fas fa-shopping-cart"></i> Cart</a></li>
+                                <li><a href="~/cart"><i class="fas fa-shopping-cart"></i> Cart</a></li>
                                 <li><a href="#"><i class="fas fa-user"></i> Account</a></li>
                                 <partial name="_LoginPartial" />
                             </ul>
@@ -117,6 +117,7 @@
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
     <script src="~/js/TheFakeShop.js" asp-append-version="true"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     @RenderSection("Scripts", required: false)
 </body>
 </html>

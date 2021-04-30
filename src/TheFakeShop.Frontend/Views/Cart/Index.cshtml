@@ -36,5 +36,12 @@
     <div style="text-align:right;margin-bottom:30px;">
         <label>Thành tiền: @sumPrice</label>
     </div>
+    @if (User.Identity.IsAuthenticated)
+    {
     <button type="button" class="btn btn-danger btn-block">Chốt đơn</button>
+    }
+    else
+    {
+        <p>You must login to do this!</p>
+    }
 </div>
