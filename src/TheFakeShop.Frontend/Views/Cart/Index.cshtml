@@ -26,7 +26,7 @@
                         <a style="margin-left:10px">@item.Qty</a>
                     </div>
                     <div class="row">
-                        <button type="button" onclick="location.href = '@Url.Action("Delete", "Cart", new { id = item.ProductId})';" class="btn btn-outline-danger btn-lg">Xóa sản phẩm</button>
+                        <button type="button" onclick="successAlert('Chắc chưa bạn?', 'Đưa tay đây nào, mãi bên nhau bạn nhé!'); location.href = '@Url.Action("Delete", "Cart", new { id = item.ProductId})';" class="btn btn-outline-danger btn-lg">Xóa sản phẩm</button>
                     </div>
                 </div>
             </div>
@@ -36,5 +36,12 @@
     <div style="text-align:right;margin-bottom:30px;">
         <label>Thành tiền: @sumPrice</label>
     </div>
-    <button type="button" class="btn btn-danger btn-block">Chốt đơn</button>
+    @if (User.Identity.IsAuthenticated)
+    {
+        <button type="button" class="btn btn-danger btn-block">Chốt đơn</button>
+    }
+    else
+    {
+        <p>You must login to do this!</p>
+    }
 </div>
