@@ -1,0 +1,41 @@
+﻿@{
+    ViewData["Title"] = "OrderDetail Page";
+}
+
+@model TheFakeShop.ShareModels.OrderHeaderViewModel
+
+<div style="padding-block:20px;padding-inline:20px;background:whitesmoke;">
+    <div>
+        <label>Trạng thái : </label><a style="margin-left:30px;">@Model.OrderStatus</a>
+        <label style="margin-left:50px;">Ngày đặt : </label><a style="margin-left:30px;">@Model.CreatedAt</a>
+    </div>
+    <div>
+        <label>Số điện thoại : </label><a style="margin-left:30px;">@Model.Phone</a>
+        <label style="margin-left:50px;">Tổng thành tiền : </label><a style="margin-left:30px;">@Model.Cost</a>
+    </div>
+    <div>
+        <label>Địa chỉ đặt hàng : </label><a style="margin-left:30px;">@Model.FullAddress</astyle="margin-left:30px;">
+    </div>
+    @foreach (var item in Model.orderDetail)
+    {
+<div class="container-fluid" style="margin-top:20px; margin-bottom:20px;">
+    <div class="row">
+        <div class="col-2">
+            <img src="@item.Image" alt="cartItemImage" style="width:150px" />
+        </div>
+        <div class="col">
+            <div class="row">
+                <label>Tên sản phẩm : </label>
+                <b style="margin-left:10px">@item.ProductName</b>
+            </div>
+            <div class="row">
+                <label> Giá tiền : </label>
+                <a style="margin-left:10px">@item.Price</a>
+                <label style="margin-left:100px">Số lượng: </label>
+                <a style="margin-left:10px">@item.Qty</a>
+            </div>
+        </div>
+    </div>
+</div>
+    }
+</div>

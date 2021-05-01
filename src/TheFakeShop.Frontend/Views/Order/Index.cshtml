@@ -1,0 +1,29 @@
+﻿
+@{
+    ViewData["Title"] = "Order Page";
+}
+
+@model IList<TheFakeShop.ShareModels.OrderHeaderViewModel>
+<div>
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">Mã đơn hàng</th>
+                <th scope="col">Ngày mua</th>
+                <th scope="col">Tổng thành tiền</th>
+                <th scope="col">Trạng thái</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+            <tr>
+                <th scope="row"><a href="~/order/@item.OrderId" >@item.OrderId</a></th>
+                <td>@item.CreatedAt</td>
+                <td>@item.Cost</td>
+                <td>@item.OrderStatus</td>
+            </tr>
+            }
+        </tbody>
+    </table>
+</div>
