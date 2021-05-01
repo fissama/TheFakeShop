@@ -9,6 +9,7 @@ namespace TheFakeShop.Backend.Models
     {
         public Product()
         {
+            OrderDetails = new HashSet<OrderDetail>();
             ProductImages = new HashSet<ProductImage>();
             ProductRatings = new HashSet<ProductRating>();
         }
@@ -22,6 +23,7 @@ namespace TheFakeShop.Backend.Models
         public DateTime CreatedAt { get; set; }
 
         public virtual Category Category { get; set; }
+        public virtual ICollection<OrderDetail> OrderDetails { get; set; }
         public virtual ICollection<ProductImage> ProductImages { get; set; }
         public virtual ICollection<ProductRating> ProductRatings { get; set; }
     }
