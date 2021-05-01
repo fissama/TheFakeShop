@@ -18,6 +18,7 @@ namespace TheFakeShop.Backend.Models
         public decimal? Cost { get; set; }
         public string FullAddress { get; set; }
         public DateTime CreatedAt { get; set; }
+        public string OrderStatus { get; set; }
 
         public virtual ICollection<OrderDetail> OrderDetails { get; set; }
     }

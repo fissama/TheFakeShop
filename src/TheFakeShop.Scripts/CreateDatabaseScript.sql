@@ -61,3 +61,6 @@ CREATE TABLE OrderDetail (
 
 ALTER TABLE OrderHeader
 ADD CONSTRAINT UC_CustomerEmail UNIQUE (CustomerEmail);
+
+ALTER TABLE OrderHeader
+ADD OrderStatus VARCHAR(2);

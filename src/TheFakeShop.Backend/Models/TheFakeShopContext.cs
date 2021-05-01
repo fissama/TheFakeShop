@@ -102,6 +102,10 @@ namespace TheFakeShop.Backend.Models
 
                 entity.Property(e => e.FullAddress).HasMaxLength(200);
 
+                entity.Property(e => e.OrderStatus)
+                    .HasMaxLength(2)
+                    .IsUnicode(false);
+
                 entity.Property(e => e.Phone)
                     .HasMaxLength(10)
                     .IsUnicode(false);
