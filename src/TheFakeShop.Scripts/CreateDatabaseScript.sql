@@ -57,10 +57,7 @@ CREATE TABLE OrderDetail (
 	OrderID INT,
 	FOREIGN KEY(OrderID) REFERENCES OrderHeader(OrderID),
 	FOREIGN KEY(ProductID) REFERENCES Products(ProductID)
-);
-
-ALTER TABLE OrderHeader
-ADD CONSTRAINT UC_CustomerEmail UNIQUE (CustomerEmail);
+); 
 
 ALTER TABLE OrderHeader
 ADD OrderStatus VARCHAR(2);
