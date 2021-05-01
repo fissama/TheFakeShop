@@ -6,7 +6,7 @@ using TheFakeShop.ShareModels;
 
 namespace TheFakeShop.Frontend.Services
 {
-    interface IOrderApiClient
+    public interface IOrderApiClient
     {
         Task<IList<OrderHeaderViewModel>> GetHistoryOrder(string customerEmail);
 

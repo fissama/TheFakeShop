@@ -33,7 +33,7 @@ namespace TheFakeShop.Frontend.Services
 
             res.EnsureSuccessStatusCode();
 
-            if (res.ReasonPhrase.Equals("Created"))
+            if (res.ReasonPhrase.Equals("No Content"))
             {
                 return true;
             }
