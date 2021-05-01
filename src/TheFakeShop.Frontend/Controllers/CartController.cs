@@ -11,6 +11,13 @@ namespace TheFakeShop.Frontend.Controllers
 {
     public class CartController : Controller
     {
+        private readonly IOrderApiClient _orderApiClient;
+
+        public CartController(IOrderApiClient orderApiClient)
+        {
+            _orderApiClient = orderApiClient;
+        }
+
         [Route("/cart")]
         public IActionResult Index()
         {
@@ -33,5 +40,35 @@ namespace TheFakeShop.Frontend.Controllers
             Task.WaitAll(Task.Delay(2000));
             return RedirectToAction("Index","Cart");
         }
+
+        public async Task<IActionResult> AddOrder(string phone, string fullAddress,string customerEmail)
+        {
+            List<CartItemViewModel> cart = HttpContext.Session.Get<List<CartItemViewModel>>("UserCart");
+            var orderVM = new OrderCreateRequest { 
+                Phone = phone,
+                FullAddress = fullAddress,
+                CustomerEmail = customerEmail,
+                Cost = 0,
+                OrderStatus = "XN",
+                orderDetail=new List<OrderDetailViewModel>()
+            };
+            foreach(var el in cart)
+            {
+                orderVM.Cost += el.Price * el.Qty;
+                orderVM.orderDetail.Add(new OrderDetailViewModel { Qty = el.Qty, ProductId = el.ProductId });
+            }
+            var result = await _orderApiClient.addOrder(orderVM);
+            if (result)
+            {
+                Task.WaitAll(Task.Delay(2000));
+                return RedirectToAction("Index", "Home");
+            }
+            else
+            {
+                Task.WaitAll(Task.Delay(2000));
+                return RedirectToAction("Index", "Cart");
+            }
+        }
+
     }
 }
