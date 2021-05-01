@@ -84,6 +84,9 @@ namespace TheFakeShop.Backend.Models
 
                 entity.ToTable("OrderHeader");
 
+                entity.HasIndex(e => e.CustomerEmail, "UC_CustomerEmail")
+                    .IsUnique();
+
                 entity.Property(e => e.OrderId).HasColumnName("OrderID");
 
                 entity.Property(e => e.Cost).HasColumnType("money");

@@ -58,3 +58,6 @@ CREATE TABLE OrderDetail (
 	FOREIGN KEY(OrderID) REFERENCES OrderHeader(OrderID),
 	FOREIGN KEY(ProductID) REFERENCES Products(ProductID)
 );
+
+ALTER TABLE OrderHeader
+ADD CONSTRAINT UC_CustomerEmail UNIQUE (CustomerEmail);
