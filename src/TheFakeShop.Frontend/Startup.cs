@@ -67,7 +67,7 @@ namespace TheFakeShop.Frontend
             services.AddHttpClient();
             services.AddTransient<ICategoryApiClient,CategoryApiClient>();
             services.AddTransient<IProductApiClient, ProductApiClient>();
-
+            services.AddTransient<IOrderApiClient, OrderApiClient>();
             services.AddDistributedMemoryCache();
 
             services.AddSession(options =>
