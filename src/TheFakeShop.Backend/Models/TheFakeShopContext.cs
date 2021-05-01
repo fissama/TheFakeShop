@@ -18,6 +18,8 @@ namespace TheFakeShop.Backend.Models
         }
 
         public virtual DbSet<Category> Categories { get; set; }
+        public virtual DbSet<OrderDetail> OrderDetails { get; set; }
+        public virtual DbSet<OrderHeader> OrderHeaders { get; set; }
         public virtual DbSet<Product> Products { get; set; }
         public virtual DbSet<ProductImage> ProductImages { get; set; }
         public virtual DbSet<ProductRating> ProductRatings { get; set; }
@@ -52,6 +54,58 @@ namespace TheFakeShop.Backend.Models
                     .WithMany(p => p.InverseParent)
                     .HasForeignKey(d => d.ParentId)
                     .HasConstraintName("FK__Categorie__Paren__25869641");
+            });
+
+            modelBuilder.Entity<OrderDetail>(entity =>
+            {
+                entity.ToTable("OrderDetail");
+
+                entity.Property(e => e.OrderDetailId).HasColumnName("OrderDetailID");
+
+                entity.Property(e => e.OrderId).HasColumnName("OrderID");
+
+                entity.Property(e => e.ProductId).HasColumnName("ProductID");
+
+                entity.HasOne(d => d.Order)
+                    .WithMany(p => p.OrderDetails)
+                    .HasForeignKey(d => d.OrderId)
+                    .HasConstraintName("FK__OrderDeta__Order__5CD6CB2B");
+
+                entity.HasOne(d => d.Product)
+                    .WithMany(p => p.OrderDetails)
+                    .HasForeignKey(d => d.ProductId)
+                    .HasConstraintName("FK__OrderDeta__Produ__5DCAEF64");
+            });
+
+            modelBuilder.Entity<OrderHeader>(entity =>
+            {
+                entity.HasKey(e => e.OrderId)
+                    .HasName("PK__OrderHea__C3905BAFA14617AF");
+
+                entity.ToTable("OrderHeader");
+
+                entity.Property(e => e.OrderId).HasColumnName("OrderID");
+
+                entity.Property(e => e.Cost).HasColumnType("money");
+
+                entity.Property(e => e.CreatedAt)
+                    .HasColumnType("datetime")
+                    .HasColumnName("Created_at")
+                    .HasDefaultValueSql("(CURRENT_TIMESTAMP)");
+
+                entity.Property(e => e.CustomerEmail)
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.FullAddress).HasMaxLength(200);
+
+                entity.Property(e => e.OrderStatus)
+                    .HasMaxLength(2)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.Phone)
+                    .HasMaxLength(10)
+                    .IsUnicode(false);
             });
 
             modelBuilder.Entity<Product>(entity =>
