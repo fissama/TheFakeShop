@@ -6,12 +6,30 @@
 
 <div style="padding-block:20px;padding-inline:20px;background:whitesmoke;">
     <div>
-        <label>Trạng thái : </label><a style="margin-left:30px;">@Model.OrderStatus</a>
+        <label>Trạng thái : </label>@switch (Model.OrderStatus)
+        {
+            case "XN":
+                <a style="margin-left:30px;">
+                    Chờ xác nhận</a>
+                ; break;
+            case "VC":
+                    <a style="margin-left:30px;">
+                        Đang vận chuyển</a>
+                ; break;
+            case "LH":
+                        <a style="margin-left:30px;">
+                            Chờ lấy hàng</a>
+                ; break;
+            case "TC":
+                            <a style="margin-left:30px;">
+                                Thành công</a>
+                ; break;
+        }
         <label style="margin-left:50px;">Ngày đặt : </label><a style="margin-left:30px;">@Model.CreatedAt</a>
     </div>
     <div>
         <label>Số điện thoại : </label><a style="margin-left:30px;">@Model.Phone</a>
-        <label style="margin-left:50px;">Tổng thành tiền : </label><a style="margin-left:30px;">@Model.Cost</a>
+        <label style="margin-left:50px;">Tổng thành tiền : </label><a style="margin-left:30px;">@string.Concat(string.Format("{0:#,##0}", Model.Cost), " vnđ")</a>
     </div>
     <div>
         <label>Địa chỉ đặt hàng : </label><a style="margin-left:30px;">@Model.FullAddress</astyle="margin-left:30px;">
@@ -30,7 +48,7 @@
             </div>
             <div class="row">
                 <label> Giá tiền : </label>
-                <a style="margin-left:10px">@item.Price</a>
+                <a style="margin-left:10px">@string.Concat(string.Format("{0:#,##0}", item.Price), " vnđ")</a>
                 <label style="margin-left:100px">Số lượng: </label>
                 <a style="margin-left:10px">@item.Qty</a>
             </div>

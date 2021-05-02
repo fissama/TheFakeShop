@@ -18,10 +18,24 @@
             @foreach (var item in Model)
             {
             <tr>
-                <th scope="row"><a href="~/order/@item.OrderId" >@item.OrderId</a></th>
+                <th scope="row"><a href="~/order/@item.OrderId">@item.OrderId</a></th>
                 <td>@item.CreatedAt</td>
-                <td>@item.Cost</td>
-                <td>@item.OrderStatus</td>
+                <td>@string.Concat(string.Format("{0:#,##0}", item.Cost), " vnđ")</td>
+                @switch (item.OrderStatus)
+                {
+                    case "XN":
+                    <td>Chờ xác nhận</td>
+                        ; break;
+                    case "VC":
+                    <td>Đang vận chuyển</td>
+                        ; break;
+                    case "LH":
+                    <td>Chờ lấy hàng</td>
+                        ; break;
+                    case "TC":
+                    <td>Thành công</td>
+                        ; break;
+                }
             </tr>
             }
         </tbody>
