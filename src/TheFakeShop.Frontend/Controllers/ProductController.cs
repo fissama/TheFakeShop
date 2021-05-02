@@ -15,11 +15,12 @@ namespace TheFakeShop.Frontend.Controllers
     public class ProductController : Controller
     {
         private readonly IProductApiClient _productApiClient;
+        private readonly ICategoryApiClient _categoryApiClient;
 
-
-        public ProductController(IProductApiClient productApiClient)
+        public ProductController(IProductApiClient productApiClient,ICategoryApiClient categoryApiClient)
         {
             _productApiClient = productApiClient;
+            _categoryApiClient = categoryApiClient;
 
         }
 
@@ -34,6 +35,7 @@ namespace TheFakeShop.Frontend.Controllers
         public async Task<IActionResult> ProductByCategory(int id)
         {
             var result = await _productApiClient.GetProductsByCategoryId(id);
+            ViewBag.CategoryName = _categoryApiClient.GetCategories().Result.Where(x=>x.Id==id).Select(x=>x.CategoryName).First();
             return View(result);
         }
 
