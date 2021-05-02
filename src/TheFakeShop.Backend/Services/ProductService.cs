@@ -23,6 +23,11 @@ namespace TheFakeShop.Backend.Services
             return await _productRepository.ReadAllProduct();
         }
 
+        public async Task<IEnumerable<Product>> ReadSearchProducts(string searchContent)
+        {
+            return await _productRepository.ReadSearchProducts(searchContent);
+        }
+
         public async Task<IEnumerable<Product>> ReadProductByCategoryId(int id)
         {
             var hasCategory = await _categoryRepository.FindById(id);

@@ -8,6 +8,8 @@ namespace TheFakeShop.Frontend.Services
     {
         Task<IList<ProductViewModel>> GetProducts();
 
+        Task<IList<ProductViewModel>> GetSearchProducts(string searchContent);
+
         Task<ProductViewModel> GetProductById(int id);
 
         Task<IList<ProductViewModel>> GetProductsByCategoryId(int id);

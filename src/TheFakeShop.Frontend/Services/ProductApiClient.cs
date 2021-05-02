@@ -29,6 +29,14 @@ namespace TheFakeShop.Frontend.Services
 
             return await response.Content.ReadAsAsync<IList<ProductViewModel>>();
         }
+        public async Task<IList<ProductViewModel>> GetSearchProducts(string searchContent)
+        {
+            var client = _httpClientFactory.CreateClient();
+            var response = await client.GetAsync(_configuration.GetValue<string>("Backend") + "product?searchContent="+searchContent);
+            response.EnsureSuccessStatusCode();
+
+            return await response.Content.ReadAsAsync<IList<ProductViewModel>>();
+        }
         public async Task<ProductViewModel> GetProductById(int id)
         {
             var client = _httpClientFactory.CreateClient();
