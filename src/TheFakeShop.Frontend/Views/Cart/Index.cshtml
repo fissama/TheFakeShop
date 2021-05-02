@@ -21,7 +21,7 @@
                     </div>
                     <div class="row">
                         <label> Giá tiền : </label>
-                        <a style="margin-left:10px">@item.Price</a>
+                        <a style="margin-left:10px">@string.Concat(string.Format("{0:#,##0}", item.Price), " vnđ")</a>
                         @{sumPrice += item.Price * item.Qty;}
                         <label style="margin-left:100px">Số lượng: </label>
                         <a style="margin-left:10px">@item.Qty</a>
@@ -50,7 +50,7 @@
                 </div>
                 <input hidden value="@User.Identity.Name" name="customerEmail" />
                 <div style="text-align:right;margin-bottom:30px;">
-                    <label>Thành tiền: @sumPrice</label>
+                    <label>Thành tiền: @string.Concat(string.Format("{0:#,##0}", sumPrice), " vnđ")</label>
                 </div>
                 <button type="submit" onclick="successAlert('Okie chốt đơn!', 'Samurai cái gì? Gái Nhật đó!');" class="btn btn-danger btn-block">Chốt đơn</button>
             }
