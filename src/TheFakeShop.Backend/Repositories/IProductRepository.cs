@@ -10,6 +10,8 @@ namespace TheFakeShop.Backend.Repositories
     {
         Task<IEnumerable<Product>> ReadAllProduct();
 
+        Task<IEnumerable<Product>> ReadSearchProducts(string searchContent);
+
         Task<Product> ReadProductById(int id);
 
         Task<bool> CreateProduct(Product Product);
