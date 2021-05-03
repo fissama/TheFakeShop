@@ -1,6 +1,6 @@
 # TheFakeShop
 TheFakeShop is a sample open source e-commerce website
-##Logic Architecture
+##LogicArchitecture
 
 ![LogicArchitecture](TheFakeShop.Design/Structure.png)
 ## Features
@@ -25,20 +25,20 @@ Clone the repository:
 ## Setup
 1. First, you must run the script **CreateDatabaseScript.sql** in *./src/TheFakeShop.Script*
 2. Secondly, open **Package Manager Console** and run a below code:
-    Scaffold-DbContext "Server=localhost;Database=TheFakeShop;Trusted_Connection=True;" Microsoft.EntityFrameworkCore.SqlServer -Force -OutputDir Models
+    ```Scaffold-DbContext "Server=localhost;Database=TheFakeShop;Trusted_Connection=True;" Microsoft.EntityFrameworkCore.SqlServer -Force -OutputDir Models```
 ## Build
 From the command line:
-    cd TheFakeShop/src
-    dotnet restore
-    dotnet build
+    ```cd TheFakeShop/src```
+    ```dotnet restore```
+    ```dotnet build```
 ## Test
 Before test, you must change ```.HasDefaultValueSql("(get_date())");``` to ```.HasDefaultValueSql("(CURRENT_TIMESTAMP)");``` in file TheFakeShopContext.cs of Backend/Models.Then, run the command line scripts to test:
-    cd TheFakeShop/src
-    dotnet test --no-build --verbosity normal
-##Class & Database Diagram
+    ```cd TheFakeShop/src```
+    ```dotnet test --no-build --verbosity normal```
+##Class&DatabaseDiagram
 - Class diagram
 
-![Class](TheFakeShop.Design/TheFakeShop Model.png)
+![Class](TheFakeShop.Design/classModel.png)
 - Database diagram
 
 ![Database](TheFakeShop.Design/databaseDiagram.png)
