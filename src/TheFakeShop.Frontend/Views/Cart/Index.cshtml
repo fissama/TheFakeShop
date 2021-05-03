@@ -5,6 +5,7 @@
 
 @model List<TheFakeShop.ShareModels.CartItemViewModel> 
 @{ decimal sumPrice = 0;}
+<div class="divider"><span></span><span class="title-products">Giỏ hàng</span><span></span></div>
 <div>
     @foreach (var item in @Model)
     {
@@ -20,21 +21,43 @@
                     </div>
                     <div class="row">
                         <label> Giá tiền : </label>
-                        <a style="margin-left:10px">@item.Price</a>
-                        @{sumPrice += item.Price*item.Qty;}
+                        <a style="margin-left:10px">@string.Concat(string.Format("{0:#,##0}", item.Price), " vnđ")</a>
+                        @{sumPrice += item.Price * item.Qty;}
                         <label style="margin-left:100px">Số lượng: </label>
                         <a style="margin-left:10px">@item.Qty</a>
                     </div>
                     <div class="row">
-                        <button type="button" onclick="location.href = '@Url.Action("Delete", "Cart", new { id = item.ProductId})';" class="btn btn-outline-danger btn-lg">Xóa sản phẩm</button>
+                        <button type="button" onclick="successAlert('Hải quay xe?', 'Đưa tay đây nào, mãi bên nhau bạn nhé!'); location.href = '@Url.Action("Delete", "Cart", new { id = item.ProductId})';" class="btn btn-outline-danger btn-lg">Xóa sản phẩm</button>
                     </div>
                 </div>
             </div>
         </div>
 
     }
-    <div style="text-align:right;margin-bottom:30px;">
-        <label>Thành tiền: @sumPrice</label>
-    </div>
-    <button type="button" class="btn btn-danger btn-block">Chốt đơn</button>
+    @if (User.Identity.IsAuthenticated)
+    {
+        @if (@Model.Count == 0)
+        {
+            <p>Giỏ hàng của bạn hổng có gì hết nè!</p>
+        }
+        else
+        {
+            @using (Html.BeginForm("AddOrder", "Cart", FormMethod.Post))
+            {
+                <div>
+                    <a>Số điện thoại : </a><input id="phone" name="phone" type="text" />
+                    <a>Địa chỉ : </a><input id="fullAddress" name="fullAddress" type="text" />
+                </div>
+                <input hidden value="@User.Identity.Name" name="customerEmail" />
+                <div style="text-align:right;margin-bottom:30px;">
+                    <label>Thành tiền: @string.Concat(string.Format("{0:#,##0}", sumPrice), " vnđ")</label>
+                </div>
+                <button type="submit" onclick="successAlert('Okie chốt đơn!', 'Samurai cái gì? Gái Nhật đó!');" class="btn btn-danger btn-block">Chốt đơn</button>
+            }
+        }
+    }
+    else
+    {
+        <p>Đăng nhập đi chớ chần chừ gì!</p>
+    }
 </div>

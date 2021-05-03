@@ -1,5 +1,5 @@
 ﻿@{
-    ViewData["Title"] = "Products Page";
+    ViewData["Title"] = "Search Page";
 }
 
 @model IList<TheFakeShop.ShareModels.ProductViewModel>
@@ -27,7 +27,7 @@
         </a>
     </div>
 </div>
-<div class="divider"><span></span><span class="title-products">Kết quả tìm kiếm: "@ViewBag.CategoryName"</span><span></span></div>
+<div class="divider"><span></span><span class="title-products">Kết quả tìm kiếm: "@ViewBag.searchContent"</span><span></span></div>
 <div class="container-fluid margin-custom">
     <div class="row">
         @foreach (var product in Model)

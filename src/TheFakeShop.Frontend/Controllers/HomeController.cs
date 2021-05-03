@@ -31,6 +31,13 @@ namespace TheFakeShop.Frontend.Controllers
         {
             return View();
         }
+        [Route("/product/search")]
+        public async Task<IActionResult> SearchProducts(string searchContent)
+        {
+            var products = await _productClient.GetSearchProducts(searchContent);
+            ViewBag.searchContent = searchContent;
+            return View(products);
+        }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()

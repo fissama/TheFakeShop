@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using TheFakeShop.Backend.Converters;
 using TheFakeShop.Backend.Models;
 
 namespace TheFakeShop.Backend.Repositories
@@ -20,6 +21,27 @@ namespace TheFakeShop.Backend.Repositories
         public async Task<IEnumerable<Product>> ReadAllProduct()
         {
             return await _context.Products.Include(x=>x.ProductImages).ToListAsync();
+        }
+
+        public async Task<IEnumerable<Product>> ReadSearchProducts(string searchContent)
+        {
+            var unSignSearchContent = stringConverter.convertToUnSign(searchContent).ToLower();
+            var results = await _context.Products.Include(x => x.ProductImages).ToListAsync();
+            var listRemove = new List<int>();
+            for (int i = 0; i < results.Count; i++)
+            {
+                var isContain = stringConverter.convertToUnSign(results[i].ProductName.ToLower()).Contains(unSignSearchContent);
+                if (isContain==false)
+                {
+                    listRemove.Add(i);
+                }
+            }
+            listRemove.Reverse();
+            foreach(var locate in listRemove)
+            {
+                results.RemoveAt(locate);
+            }    
+            return results;
         }
 
         public async Task<Product> ReadProductById(int id)

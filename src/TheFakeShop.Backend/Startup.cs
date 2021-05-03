@@ -48,6 +48,8 @@ namespace TheFakeShop
             services.AddTransient<IProductRepository, ProductRepository>();
             services.AddTransient<IRatingService, RatingService>();
             services.AddTransient<IRatingRepository, RatingRepository>();
+            services.AddTransient<IOrderService, OrderService>();
+            services.AddTransient<IOrderRepository, OrderRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

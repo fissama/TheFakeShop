@@ -22,21 +22,32 @@ namespace TheFakeShop.Backend.Controllers
             _productService = productService;
         }
 
+
         [HttpGet]
         [AllowAnonymous]
-        public async Task<ActionResult<IEnumerable<ProductViewModel>>> GetProducts()
-        {
-            /* var products = await _context.Products.Include("ProductImages").Select(x =>
-                 new
-                 {
-                     x.ProductId,
-                     x.ProductName,
-                     x.Price,
-                     x.Description,
-                     x.ProductImages
-                 }).ToListAsync();*/
+        public Task<ActionResult<IEnumerable<ProductViewModel>>> GetProducts(string searchContent) =>
+        searchContent == null ? GetAllProduct() : GetSearchProduct(searchContent);
 
+        private async Task<ActionResult<IEnumerable<ProductViewModel>>> GetAllProduct()
+        {
             var products = await _productService.ReadAllProduct();
+
+            var prodVMs = products.Select(x =>
+                new ProductViewModel
+                {
+                    ProductId = x.ProductId,
+                    ProductName = x.ProductName,
+                    Price = x.Price,
+                    Description = x.Description,
+                    ProductImages = x.ProductImages.Select(x => x.ImageLink).ToList()
+                }).ToList();
+
+            return prodVMs;
+        }
+
+        private async Task<ActionResult<IEnumerable<ProductViewModel>>> GetSearchProduct(string searchContent)
+        {
+            var products = await _productService.ReadSearchProducts(searchContent);
 
             var prodVMs = products.Select(x =>
                 new ProductViewModel
