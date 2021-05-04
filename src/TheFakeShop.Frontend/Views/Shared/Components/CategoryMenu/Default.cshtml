@@ -1,0 +1,25 @@
+﻿@model IList<TheFakeShop.ShareModels.CategoryViewModel>
+
+<ul class="menu space-please">
+        @foreach (var category in Model)
+        {
+            if (category.parentId == null)
+            {
+                <div class="dropdown space-please">
+                    <li>
+
+                        <a href="~/category/@category.Id">@category.CategoryName</a>
+                        <ul class="dropdown-content">
+                            @foreach (var el in Model.Where(x => x.parentId == category.Id))
+                            {
+                                <li>
+                                    <a href="~/category/@el.Id">@el.CategoryName</a>
+                                </li>
+                            }
+                        </ul>
+                    </li>
+                </div>
+            }
+
+        }
+</ul>

@@ -3,46 +3,129 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - TheFakeShop.Frontend</title>
+    <title>@ViewData["Title"] - TheFakeShop</title>
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="~/css/site.css" />
+    <link rel="stylesheet" href="~/css/TheFakeShop.css" asp-append-version="true" />
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.1/css/all.css" crossorigin="anonymous">
+    <link href="~/css/prettyPhoto.css" rel="stylesheet" />
+    <link href="~/css/price-range.css" rel="stylesheet" />
+    <link href="~/css/animate.css" rel="stylesheet" />
+    <link href="~/css/main.css" rel="stylesheet" />
+    <link href="~/css/responsive.css" rel="stylesheet" />
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+        <div class="header-middle">
+            <!--header-top-->
             <div class="container">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">TheFakeShop.Frontend</a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                        </li>
-                    </ul>
+                <div class="row no-padding-please">
+                    <div class="col-sm-4">
+                        <div class="logo pull-left">
+                            <a asp-area="" asp-controller="Home" asp-action="Index" itemprop="url">
+                                <img id="logoArea" src="~/assets/logo-THEFACESHOP.jpg" width="160" alt="TheFakeShop_Logo" />
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-sm-8 align-please">
+                        <div class="shop-menu pull-right">
+                            <ul class="nav navbar-nav  menu">
+                                <li>
+                                    @using (Html.BeginForm("SearchProducts", "Home", FormMethod.Get))
+                                    {
+                                        <a class="input-group">
+                                            <input id="searchContent" name="searchContent" type="text" class="form-control" placeholder="Dưỡng da, son,..." aria-label="Recipient's username" aria-describedby="button-addon2">
+                                            <button class="btn btn-outline-secondary" type="submit" id="button-addon2"><i class="fas fa-search"></i></button>
+                                        </a>
+                                    }
+                                </li>
+                                <li><a href="~/cart"><i class="fas fa-shopping-cart"></i> Cart</a></li>
+                                <li><a href="~/order"><i class="fas fa-history"></i> Order</a></li>
+                                <partial name="_LoginPartial" />
+                            </ul>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </nav>
+        </div><!--/header-top-->
+        <div class="no-padding-please">
+            <!--header-bottom-->
+            <div class="container">
+                <div class="row">
+                    @await Component.InvokeAsync("CategoryMenu")
+                </div>
+            </div>
+        </div><!--/header-bottom-->
+
     </header>
-    <div class="container">
+    <div class="container-fluid body-area">
+
+
         <main role="main" class="pb-3">
             @RenderBody()
         </main>
     </div>
 
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2021 - TheFakeShop.Frontend - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+    <!-- Footer -->
+    <footer class="bg-dark text-center text-white">
+        <!-- Grid container -->
+        <div class="container p-4">
+            <!-- Section: Form -->
+            <section class="">
+                <form action="">
+                    <!--Grid row-->
+                    <div class="row d-flex justify-content-center">
+                        <!--Grid column-->
+                        <div class="col-auto">
+                            <p class="pt-2">
+                                <strong>Sign up for our newsletter</strong>
+                            </p>
+                        </div>
+                        <!--Grid column-->
+                        <!--Grid column-->
+                        <div class="col-md-5 col-12">
+                            <!-- Email input -->
+                            <div class="form-outline form-white mb-4">
+                                <input type="email" id="form5Example2" class="form-control" />
+                                <label class="form-label" for="form5Example2">Email address</label>
+                            </div>
+                        </div>
+                        <!--Grid column-->
+                        <!--Grid column-->
+                        <div class="col-auto">
+                            <!-- Submit button -->
+                            <button type="submit" class="btn btn-outline-light mb-4">
+                                Subscribe
+                            </button>
+                        </div>
+                        <!--Grid column-->
+                    </div>
+                    <!--Grid row-->
+                </form>
+            </section>
+            <!-- Section: Form -->
+            <!-- Section: Text -->
+            <section class="mb-4">
+                <p>
+                    Thiên nhiên luôn sở hữu những bí mật quý giá mà nhân loại đang cất công tìm kiếm. Hãy lắng nghe câu chuyện của thiên nhiên được kể bởi The Fake Shop. Hãy để các câu chuyện sống động nhưng nhẹ nhàng và quyến rũ từ thiên nhiên được minh chứng một cách trọn vẹn và đày sức thuyết phụ trên làn da của bạn.
+                </p>
+            </section>
+            <!-- Section: Text -->
         </div>
+        <!-- Grid container -->
+        <!-- Copyright -->
+        <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
+            © 2021 Copyright:
+            <a class="text-white" href="https://mdbootstrap.com/">fissama</a>
+        </div>
+        <!-- Copyright -->
     </footer>
+
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="~/js/TheFakeShop.js" asp-append-version="true"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     @RenderSection("Scripts", required: false)
 </body>
 </html>

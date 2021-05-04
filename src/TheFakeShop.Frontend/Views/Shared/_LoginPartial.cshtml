@@ -1,0 +1,9 @@
+﻿
+@if (User.Identity.IsAuthenticated)
+{
+    <li><a asp-controller="Account" asp-action="SignOut" ><i class="fas fa-lock"></i> Logout</a></li>
+}
+else
+{
+    <li><a asp-controller="Account" asp-action="SignIn"><i class="fas fa-lock"></i> Login</a></li>
+}
