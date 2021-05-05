@@ -2,7 +2,7 @@
 TheFakeShop is a sample open source e-commerce website
 ## Azure Demo Link
 [CustomerSite](https://customersite-fissama.azurewebsites.net) || [Backend](https://backend-fissama.azurewebsites.net/swagger) || [IdentityServer](https://identity-fissama.azurewebsites.net) || [AdminSite](https://safissama.z23.web.core.windows.net)
-|| [Slide](https://docs.google.com/presentation/d/1L71zGC8oeQDQIfIUNJ4F4AaL67pVOKAITJWab71WSKY/edit?usp=sharing) || 
+
 ## LogicArchitecture
 
 ![LogicArchitecture](TheFakeShop.Design/Structure.png)
