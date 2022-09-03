@@ -1,0 +1,38 @@
+syntax = "proto3";
+
+import "google/api/annotations.proto";
+import "google/protobuf/empty.proto";
+import "google/protobuf/wrappers.proto";
+import "google/protobuf/timestamp.proto";
+
+option csharp_namespace = "TheFakeShop.Service.Product";
+
+package Category;
+
+service Category {
+    rpc GetAllCategory(google.protobuf.Empty) returns (GetAllCategoryResponse){
+        option (google.api.http) = {
+            get: "/v1/Categories"
+        };
+    }
+    rpc GetCategory (GetCategoryRequest) returns (GetCategoryResponse){
+        option (google.api.http) = {
+            get: "/v1/Categories/{CategoryId}"
+        };
+    }
+}
+
+message GetCategoryRequest {
+    uint32 CategoryId = 1;
+}
+
+message GetCategoryResponse {
+	uint32 CategoryId = 1;
+    string CategoryName = 2;
+    google.protobuf.Int32Value ParentId = 3;
+    google.protobuf.Timestamp CreatedAt = 4;
+}
+
+message GetAllCategoryResponse {
+    repeated GetCategoryResponse Categories = 1;
+}
