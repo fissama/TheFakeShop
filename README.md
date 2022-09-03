@@ -31,7 +31,7 @@ git clone https://github.com/fissama/TheFakeShop.git
 1. First, you must run the script **CreateDatabaseScript.sql** in *./src/TheFakeShop.Script*
 2. Secondly, open **Package Manager Console** and run a below code:
 ```
-caffold-DbContext "Server=localhost;Database=TheFakeShop;Trusted_Connection=True;" Microsoft.EntityFrameworkCore.SqlServer -Force -OutputDir Models
+Scaffold-DbContext "Server=localhost;Database=TheFakeShop;Trusted_Connection=True;" Microsoft.EntityFrameworkCore.SqlServer -Force -OutputDir Models
 ```
 ## Build
 From the command line:
